@@ -11,13 +11,15 @@ public class Runner
     private static GridManager grid = new GridManager(0, 0);
     private static Player player = new Player(0, 0, 0);
     private static NotPlayer opponent = new NotPlayer(0, 0);
-    
+
     public static void main(String[] args)
     {
         String userInput = "";
         int intInputX = 0;
         int intInputY = 0;
         Scanner scan = new Scanner(System.in);
+        boolean hasWon = false;
+        boolean hasLost = false;
 
         System.out.println("Select Difficulty: \nEasy, Medium, Hard");
         userInput = scan.next();
@@ -135,30 +137,31 @@ public class Runner
             userInput = scan.next();
         }
 
-        //grid.setPosOnGrid(player.getPosX(), player.getPosY());
         System.out.println();
         grid.drawGrid();
 
         //cheats
         //System.out.println("\n" + opponent.getPosX() + "\n" + opponent.getPosY());
 
-        while(!userInput.equals("quit") && !userInput.equals("Quit"))
+        while(!userInput.equals("quit") && !userInput.equals("Quit") && !hasWon && !hasLost)
         {
-            System.out.println("Select one of the following options: ");
+            System.out.println("\nSelect one of the following options: ");
             System.out.println("Guess, Help, End Turn, or Quit");
             userInput = scan.next();
 
             if(userInput.equals("Guess") || userInput.equals("guess"))
             {
-                if(guess())
+                int guess = guess();
+                
+                if(guess == 1)
                 {
-                    
+                    hasWon = true;
                 }
-                else if(!guess() && player.getNumGuesses() > 0)
+                else if(guess == 0)
                 {
-                    
+                    hasLost = true;
                 }
-                else if(!guess() && player.getNumGuesses() <= 0)
+                else
                 {
                     
                 }
@@ -169,48 +172,47 @@ public class Runner
             }
             else if(userInput.equals("End Turn") || userInput.equals("end turn"))
             {
-                
+
             }
         }
     }
-    
-    public static boolean guess()
+
+    public static int guess()
     {
         Scanner scan = new Scanner(System.in);
         int xPos = 0;
         int yPos = 0;
-        
+
         if(player.getNumGuesses() > 0)
         {
-            System.out.println("Pick an integer between 0 and " + grid.getNumRows());
+            System.out.println("\nPick an integer between 0 and " + grid.getNumRows());
             xPos = scan.nextInt();
-            
+
             System.out.println("Pick an integer between 0 and " + grid.getNumCols());
             yPos = scan.nextInt();
-            
+
             if(opponent.checkGuess(xPos, yPos))
             {
-                System.out.println("Correct!");
-                return true;
+                System.out.println("\nCorrect!");
+                return 1;
             }
             else
             {
-                System.out.println("Wrong");
+                System.out.println("\nWrong");
                 player.changeNumGuesses(1);
                 System.out.println("Remaining guesses: " + player.getNumGuesses());
-                
-                return false;
+                return 2;
             }
         }
         else
         {
             System.out.println("You ran out of guesses");
-            return false;
+            return 0;
         }
     }
-    
+
     public static void help()
     {
-        
+
     }
 }
