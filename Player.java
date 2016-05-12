@@ -28,6 +28,18 @@ public class Player
         return yPos;
     }
     
+    public boolean checkGuess(int posX, int posY)
+    {
+        if(posX == xPos && posY == yPos)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     public int getNumGuesses()
     {
         return numGuesses;

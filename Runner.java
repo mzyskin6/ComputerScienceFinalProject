@@ -14,6 +14,7 @@ public class Runner
 
     public static void main(String[] args)
     {
+        String difficulty = "";
         String userInput = "";
         int intInputX = 0;
         int intInputY = 0;
@@ -22,9 +23,9 @@ public class Runner
         boolean hasLost = false;
 
         System.out.println("Select Difficulty: \nEasy, Medium, Hard");
-        userInput = scan.next();
+        difficulty = scan.next();
 
-        if(userInput.equals("Easy") || userInput.equals("easy"))
+        if(difficulty.equals("Easy") || difficulty.equals("easy"))
         {
             grid = new GridManager(6, 6);
 
@@ -60,7 +61,7 @@ public class Runner
 
             opponent = new NotPlayer(xPos, yPos);
         }
-        else if(userInput.equals("Medium") || userInput.equals("medium"))
+        else if(difficulty.equals("Medium") || difficulty.equals("medium"))
         {
             grid = new GridManager(10, 10);
 
@@ -96,7 +97,7 @@ public class Runner
 
             opponent = new NotPlayer(xPos, yPos);
         }
-        else if(userInput.equals("Hard") || userInput.equals("hard"))
+        else if(difficulty.equals("Hard") || difficulty.equals("hard"))
         {
             grid = new GridManager(14, 14);
 
@@ -172,7 +173,16 @@ public class Runner
             }
             else if(userInput.equals("End Turn") || userInput.equals("end turn"))
             {
-
+                boolean turn = turn(difficulty);
+                
+                if(turn)
+                {
+                    hasLost = true;
+                }
+                else
+                {
+                    
+                }
             }
         }
     }
@@ -213,6 +223,33 @@ public class Runner
 
     public static void help()
     {
-
+        
+    }
+    
+    public static boolean turn(String level)
+    {
+        int xPos = 0;
+        int yPos = 0;
+        
+        if(level.equals("Easy") || level.equals("easy"))
+        {
+            xPos = (int)(Math.random() * 6);
+            yPos = (int)(Math.random() * 6);
+        }
+        else if(level.equals("Medium") || level.equals("medium"))
+        {
+            xPos = (int)(Math.random() * 10);
+            yPos = (int)(Math.random() * 10);
+        }
+        
+        if(player.checkGuess(xPos, yPos))
+        {
+            System.out.println("You Lose");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
