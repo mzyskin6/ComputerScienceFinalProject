@@ -153,7 +153,7 @@ public class Runner
             if(userInput.equals("Guess") || userInput.equals("guess"))
             {
                 int guess = guess();
-                
+
                 if(guess == 1)
                 {
                     hasWon = true;
@@ -164,7 +164,7 @@ public class Runner
                 }
                 else
                 {
-                    
+
                 }
             }
             else if(userInput.equals("Help") || userInput.equals("help"))
@@ -174,19 +174,24 @@ public class Runner
             else if(userInput.equals("End Turn") || userInput.equals("end turn"))
             {
                 boolean turn = turn(difficulty);
-                
+
                 if(turn)
                 {
                     hasLost = true;
                 }
                 else
                 {
-                    
+
                 }
             }
         }
     }
 
+    //player makes a guess
+    //will return 0, 1, or 2
+    //0 if the player runs out of guesses to make
+    //1 if the guess was correct
+    //2 if the guess was wrong but the player hasn't run out of guesses
     public static int guess()
     {
         Scanner scan = new Scanner(System.in);
@@ -221,16 +226,18 @@ public class Runner
         }
     }
 
+    //will display information about the game and how to play
     public static void help()
     {
-        
+
     }
-    
+
+    //the opponent turn
     public static boolean turn(String level)
     {
         int xPos = 0;
         int yPos = 0;
-        
+
         if(level.equals("Easy") || level.equals("easy"))
         {
             xPos = (int)(Math.random() * 6);
@@ -241,7 +248,7 @@ public class Runner
             xPos = (int)(Math.random() * 10);
             yPos = (int)(Math.random() * 10);
         }
-        
+
         if(player.checkGuess(xPos, yPos))
         {
             System.out.println("You Lose");
@@ -249,6 +256,7 @@ public class Runner
         }
         else
         {
+            System.out.println("The opponent did not guess correctly");
             return false;
         }
     }
