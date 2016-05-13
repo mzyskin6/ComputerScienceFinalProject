@@ -194,7 +194,7 @@ public class Runner
     }
 
     
-    
+    //the game menu where the user chooses what they do that turn
     public static void menu()
     {
         String userInput = "";
@@ -202,7 +202,7 @@ public class Runner
 
         if(hasLost || player.getNumGuesses() == 0)
         {
-            System.out.println("GAME OVER");
+            System.out.println("\nGAME OVER");
         }
         else
         {
@@ -305,12 +305,21 @@ public class Runner
         }
     }
 
+    
     //will display information about the game and how to play
     public static void help()
     {
-
+        System.out.println("The goal is to correctly guess where the opponent is");
+        System.out.println("\n" + "The user will have several options each turn");
+        System.out.println("Guess: Make a guess, there are a limited number of guesses");
+        System.out.println("Help: display this menu");
+        System.out.println("End Turn: Do nothing this turn");
+        System.out.println("Quit: Exit");
+        
+        menu();
     }
 
+    
     //the opponent turn
     public static boolean turn(String level)
     {
