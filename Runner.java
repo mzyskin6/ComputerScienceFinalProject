@@ -144,7 +144,9 @@ public class Runner
         //cheats
         //System.out.println("\n" + opponent.getPosX() + "\n" + opponent.getPosY());
 
-        while(!userInput.equals("quit") && !userInput.equals("Quit") && !hasWon && !hasLost)
+        boolean playerTurn = true;
+
+        if(playerTurn)
         {
             System.out.println("\nSelect one of the following options: ");
             System.out.println("Guess, Help, End Turn, or Quit");
@@ -164,7 +166,7 @@ public class Runner
                 }
                 else
                 {
-
+                    
                 }
             }
             else if(userInput.equals("Help") || userInput.equals("help"))
@@ -184,6 +186,8 @@ public class Runner
 
                 }
             }
+        }else{
+            turn(difficulty);
         }
     }
 
