@@ -12,15 +12,16 @@ public class Runner
     private static Player player = new Player(0, 0, 0);
     private static NotPlayer opponent = new NotPlayer(0, 0);
 
+    private static boolean hasWon = false;
+    private static boolean hasLost = false;
+    private static String difficulty = "";
+
     public static void main(String[] args)
     {
-        String difficulty = "";
         String userInput = "";
         int intInputX = 0;
         int intInputY = 0;
         Scanner scan = new Scanner(System.in);
-        boolean hasWon = false;
-        boolean hasLost = false;
 
         System.out.println("Select Difficulty: \nEasy, Medium, Hard");
         difficulty = scan.next();
@@ -135,7 +136,7 @@ public class Runner
         }else{
             System.out.println("That was not a valid option\n");
             System.out.println("Select Difficulty: \nEasy, Medium, Hard");
-            userInput = scan.next();
+            difficulty = scan.next();
         }
 
         System.out.println();
@@ -144,45 +145,94 @@ public class Runner
         //cheats
         //System.out.println("\n" + opponent.getPosX() + "\n" + opponent.getPosY());
 
-        while(!userInput.equals("quit") && !userInput.equals("Quit") && !hasWon && !hasLost)
+        //boolean playerTurn = true;
+
+        //if(playerTurn)
+        //{
+        System.out.println("\nSelect one of the following options: ");
+        System.out.println("Guess, Help, End Turn, or Quit");
+        userInput = scan.next();
+
+        if(userInput.equals("Guess") || userInput.equals("guess"))
         {
-            System.out.println("\nSelect one of the following options: ");
-            System.out.println("Guess, Help, End Turn, or Quit");
-            userInput = scan.next();
+            int guess = guess();
 
-            if(userInput.equals("Guess") || userInput.equals("guess"))
+            if(guess == 1)
             {
-                int guess = guess();
-
-                if(guess == 1)
-                {
-                    hasWon = true;
-                }
-                else if(guess == 0)
-                {
-                    hasLost = true;
-                }
-                else
-                {
-
-                }
+                hasWon = true;
             }
-            else if(userInput.equals("Help") || userInput.equals("help"))
+            else if(guess == 0)
             {
-                help();
+                hasLost = true;
             }
-            else if(userInput.equals("End Turn") || userInput.equals("end turn"))
+            else
             {
-                boolean turn = turn(difficulty);
+                turn(difficulty);
+            }
+        }
+        else if(userInput.equals("Help") || userInput.equals("help"))
+        {
+            help();
+        }
+        else if(userInput.equals("End Turn") || userInput.equals("end turn"))
+        {
+            boolean turn = turn(difficulty);
 
-                if(turn)
-                {
-                    hasLost = true;
-                }
-                else
-                {
+            if(turn)
+            {
+                hasLost = true;
+            }
+            else
+            {
 
-                }
+            }
+        }
+        //}else{
+        //  turn(difficulty);
+        //}
+    }
+
+    public static void menu()
+    {
+        String userInput = "";
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("\nSelect one of the following options: ");
+        System.out.println("Guess, Help, End Turn, or Quit");
+        userInput = scan.next();
+
+        if(userInput.equals("Guess") || userInput.equals("guess"))
+        {
+            int guess = guess();
+
+            if(guess == 1)
+            {
+                hasWon = true;
+            }
+            else if(guess == 0)
+            {
+                hasLost = true;
+            }
+            else
+            {
+                turn(difficulty);
+            }
+        }
+        else if(userInput.equals("Help") || userInput.equals("help"))
+        {
+            help();
+        }
+        else if(userInput.equals("End Turn") || userInput.equals("end turn"))
+        {
+            boolean turn = turn(difficulty);
+
+            if(turn)
+            {
+                hasLost = true;
+            }
+            else
+            {
+
             }
         }
     }
@@ -238,6 +288,8 @@ public class Runner
         int xPos = 0;
         int yPos = 0;
 
+        System.out.println(level);
+
         if(level.equals("Easy") || level.equals("easy"))
         {
             xPos = (int)(Math.random() * 6);
@@ -259,5 +311,7 @@ public class Runner
             System.out.println("The opponent did not guess correctly");
             return false;
         }
+        
+        //menu();
     }
 }
