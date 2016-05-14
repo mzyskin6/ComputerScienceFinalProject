@@ -150,7 +150,7 @@ public class Runner
         //if(playerTurn)
         //{
         System.out.println("\nSelect one of the following options: ");
-        System.out.println("Guess, Help, End Turn, or Quit");
+        System.out.println("Guess, Help, or Quit");
         userInput = scan.next();
 
         if(userInput.equals("Guess") || userInput.equals("guess"))
@@ -175,28 +175,20 @@ public class Runner
         {
             help();
         }
-        else if(userInput.equals("End Turn") || userInput.equals("end turn"))
+        else if(userInput.equals("Quit") || userInput.equals("quit"))
         {
-            boolean turn = turn(difficulty);
 
-            if(turn)
-            {
-                hasLost = true;
-            }
-            else
-            {
-
-            }
         }
-        //}else{
-        //  turn(difficulty);
-        //}
+        else
+        {
+            System.out.println("That was not a valid choice");
+            menu();
+        }
     }
 
-    
     //the game menu where the user chooses what they do that turn
     public static void menu()
-    {
+    {   
         String userInput = "";
         Scanner scan = new Scanner(System.in);
 
@@ -208,10 +200,10 @@ public class Runner
         {
             System.out.println("\n");
             grid.drawGrid();
-            System.out.println("\n");
-            
+            //System.out.println("\n");
+
             System.out.println("\nSelect one of the following options: ");
-            System.out.println("Guess, Help, End Turn, or Quit");
+            System.out.println("Guess, Help, or Quit");
             userInput = scan.next();
         }
 
@@ -237,19 +229,6 @@ public class Runner
         {
             help();
         }
-        else if(userInput.equals("End Turn") || userInput.equals("end turn"))
-        {
-            boolean turn = turn(difficulty);
-
-            if(turn)
-            {
-                hasLost = true;
-            }
-            else
-            {
-
-            }
-        }
     }
 
     //player makes a guess
@@ -267,7 +246,7 @@ public class Runner
         {
             System.out.println("\nPick an integer between 0 and " + grid.getNumRows());
             xPos = scan.nextInt();
-            
+
             if(xPos >= grid.getNumRows())
             {
                 System.out.println("\nThat was not valid, try again");
@@ -276,15 +255,15 @@ public class Runner
 
             System.out.println("Pick an integer between 0 and " + grid.getNumCols());
             yPos = scan.nextInt();
-            
+
             if(yPos >= grid.getNumCols())
             {
                 System.out.println("\nThat was not valid, try again");
                 yPos = scan.nextInt();
             }
 
-            grid.setPosOnGrid(xPos, yPos);
-            
+            grid.setPosOnGrid(xPos, yPos, true);
+
             if(opponent.checkGuess(xPos, yPos))
             {
                 System.out.println("\nCorrect!");
@@ -305,7 +284,6 @@ public class Runner
         }
     }
 
-    
     //will display information about the game and how to play
     public static void help()
     {
@@ -313,13 +291,14 @@ public class Runner
         System.out.println("\n" + "The user will have several options each turn");
         System.out.println("Guess: Make a guess, there are a limited number of guesses");
         System.out.println("Help: display this menu");
-        System.out.println("End Turn: Do nothing this turn");
         System.out.println("Quit: Exit");
         
+        System.out.println("\nX represents where the player has guessed");
+        System.out.println("O represents where the opponent has guessed");
+
         menu();
     }
 
-    
     //the opponent turn
     public static boolean turn(String level)
     {
@@ -339,7 +318,14 @@ public class Runner
             xPos = (int)(Math.random() * 10);
             yPos = (int)(Math.random() * 10);
         }
+        else if(level.equals("Hard") || level.equals("hard"))
+        {
+            xPos = (int)(Math.random() * 14);
+            yPos = (int)(Math.random() * 14);
+        }
 
+        grid.setPosOnGrid(xPos, yPos, false);
+        
         if(player.checkGuess(xPos, yPos))
         {
             System.out.println("You Lose");

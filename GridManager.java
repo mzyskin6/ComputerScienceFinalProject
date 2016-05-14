@@ -8,36 +8,36 @@
 public class GridManager
 {
     private String[][] grid;
-    
+
     private int rows;
     private int cols;
-    
+
     public GridManager(int numRows, int numCols)
     {
         grid = new String[numRows][numCols];
-        
+
         for(int x = 0; x < grid.length; x++)
         {
             for(int y = 0; y < grid[0].length; y++)
             {
-                grid[x][y] = "O";
+                grid[x][y] = "-";
             }
         }
-        
+
         rows = numRows;
         cols = numCols;
     }
-    
+
     public int getNumRows()
     {
         return rows;
     }
-    
+
     public int getNumCols()
     {
         return cols;
     }
-    
+
     public void drawGrid()
     {
         for(int x = 0; x < grid.length; x++)
@@ -49,10 +49,18 @@ public class GridManager
             System.out.println();
         }
     }
-    
-    public String[][] setPosOnGrid(int posX, int posY)
+
+    public String[][] setPosOnGrid(int posX, int posY, boolean isPlayer)
     {
-        grid[posX][posY] = "X";
+        if(isPlayer)
+        {
+            grid[posX][posY] = "X";
+        }
+        else
+        {
+            grid[posX][posY] = "O";
+        }
+        
         return grid;
     }
 }
