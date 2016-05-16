@@ -204,7 +204,6 @@ public class Runner
         {
             System.out.println("\n");
             grid.drawGrid();
-            //System.out.println("\n");
 
             System.out.println("\nSelect one of the following options: ");
             System.out.println("Guess, Help, or Quit");
@@ -308,8 +307,6 @@ public class Runner
     {
         int xPos = 0;
         int yPos = 0;
-
-        //System.out.println(level);
 
         System.out.println("\nOpponent Turn");
         if(level.equals("Easy") || level.equals("easy"))
