@@ -140,49 +140,53 @@ public class Runner
         }
 
         System.out.println();
+        help();
+
+        System.out.println();
         grid.drawGrid();
 
         //cheats
         //System.out.println("\n" + opponent.getPosX() + "\n" + opponent.getPosY());
 
-        //boolean playerTurn = true;
-
-        //if(playerTurn)
-        //{
-        System.out.println("\nSelect one of the following options: ");
-        System.out.println("Guess, Help, or Quit");
-        userInput = scan.next();
-
-        if(userInput.equals("Guess") || userInput.equals("guess"))
+        while(!hasLost && !(player.getNumGuesses() == 0) && !hasWon)
         {
-            int guess = guess();
+            System.out.println("hasLost " + hasLost + "\n" + "player guesses " + player.getNumGuesses());
+            
+            System.out.println("\nSelect one of the following options: ");
+            System.out.println("Guess, Help, or Quit");
+            userInput = scan.next();
 
-            if(guess == 1)
+            if(userInput.equals("Guess") || userInput.equals("guess"))
             {
-                hasWon = true;
+                int guess = guess();
+
+                if(guess == 1)
+                {
+                    hasWon = true;
+                }
+                else if(guess == 0)
+                {
+                    hasLost = true;
+                }
+                else
+                {
+                    turn(difficulty);
+                    menu();
+                }
             }
-            else if(guess == 0)
+            else if(userInput.equals("Help") || userInput.equals("help"))
             {
-                hasLost = true;
+                help();
+            }
+            else if(userInput.equals("Quit") || userInput.equals("quit"))
+            {
+
             }
             else
             {
-                turn(difficulty);
+                System.out.println("That was not a valid choice");
                 menu();
             }
-        }
-        else if(userInput.equals("Help") || userInput.equals("help"))
-        {
-            help();
-        }
-        else if(userInput.equals("Quit") || userInput.equals("quit"))
-        {
-
-        }
-        else
-        {
-            System.out.println("That was not a valid choice");
-            menu();
         }
     }
 
@@ -191,7 +195,7 @@ public class Runner
     {   
         String userInput = "";
         Scanner scan = new Scanner(System.in);
-
+        
         if(hasLost || player.getNumGuesses() == 0)
         {
             System.out.println("\nGAME OVER");
@@ -292,7 +296,7 @@ public class Runner
         System.out.println("Guess: Make a guess, there are a limited number of guesses");
         System.out.println("Help: display this menu");
         System.out.println("Quit: Exit");
-        
+
         System.out.println("\nX represents where the player has guessed");
         System.out.println("O represents where the opponent has guessed");
 
@@ -300,7 +304,7 @@ public class Runner
     }
 
     //the opponent turn
-    public static boolean turn(String level)
+    public static void turn(String level)
     {
         int xPos = 0;
         int yPos = 0;
@@ -325,17 +329,17 @@ public class Runner
         }
 
         grid.setPosOnGrid(xPos, yPos, false);
-        
+
         if(player.checkGuess(xPos, yPos))
         {
-            System.out.println("You Lose");
+            System.out.println("The Opponenet Guessed Correctly");
             hasLost = true;
-            return true;
+            //return true;
         }
         else
         {
             System.out.println("The opponent did not guess correctly");
-            return false;
+            //return false;
         }
 
         //menu();
