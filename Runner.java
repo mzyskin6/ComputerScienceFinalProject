@@ -142,55 +142,59 @@ public class Runner
         System.out.println();
         help();
 
+        
         System.out.println();
         grid.drawGrid();
 
         //cheats
         //System.out.println("\n" + opponent.getPosX() + "\n" + opponent.getPosY());
 
+        menu();
+    
         //while(!hasLost && !(player.getNumGuesses() == 0) && !hasWon)
         //{   
-            if(!(userInput.equals("Quit") && userInput.equals("quit")))
-            {
-                System.out.println("\nSelect one of the following options: ");
-                System.out.println("Guess, Help, or Quit");
-                userInput = scan.next();
-
-                if(userInput.equals("Guess") || userInput.equals("guess"))
-                {
-                    int guess = guess();
-
-                    if(guess == 1)
-                    {
-                        hasWon = true;
-                    }
-                    else if(guess == 0)
-                    {
-                        hasLost = true;
-                    }
-                    else
-                    {
-                        turn(difficulty);
-                        menu();
-                    }
-                }
-                else if(userInput.equals("Help") || userInput.equals("help"))
-                {
-                    help();
-                }
-                else if(userInput.equals("Quit") || userInput.equals("quit"))
-                {
-
-                }
-                else
-                {
-                    System.out.println("That was not a valid choice");
-                    menu();
-                }
-            }
+//             if(!(userInput.equals("Quit") && userInput.equals("quit")))
+//             {
+//                 System.out.println("\nSelect one of the following options: ");
+//                 System.out.println("Guess, Help, or Quit");
+//                 userInput = scan.next();
+// 
+//                 if(userInput.equals("Guess") || userInput.equals("guess"))
+//                 {
+//                     int guess = guess();
+// 
+//                     if(guess == 1)
+//                     {
+//                         hasWon = true;
+//                     }
+//                     else if(guess == 0)
+//                     {
+//                         hasLost = true;
+//                     }
+//                     else
+//                     {
+//                         turn(difficulty);
+//                         menu();
+//                     }
+//                 }
+//                 else if(userInput.equals("Help") || userInput.equals("help"))
+//                 {
+//                     help();
+//                 }
+//                 else if(userInput.equals("Quit") || userInput.equals("quit"))
+//                 {
+// 
+//                 }
+//                 else
+//                 {
+//                     System.out.println("That was not a valid choice");
+//                     menu();
+//                 }
+//             }
         //}
     }
 
+    
     /**
      * the menu displayed at the beginning of each turn
      * The user will use this to select their action for the next turn
@@ -238,10 +242,11 @@ public class Runner
         }
         else if(userInput.equals("Quit") || userInput.equals("quit"))
         {
-
+            return;
         }
     }
 
+    
     /**
      * the players guess
      * 
@@ -297,6 +302,7 @@ public class Runner
         }
     }
 
+    
     /**
      * all tutorial information
      */
@@ -314,6 +320,7 @@ public class Runner
         menu();
     }
 
+    
     /**
      * the opponents turn
      * 
