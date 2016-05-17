@@ -10,24 +10,29 @@ public class Player
     private int xPos;
     private int yPos;
     private int numGuesses;
-    
+
+    /**
+     * Constructor
+     * inputs posX and posY store the position on the grid
+     * input guesses stores the number of guesses the player can make before losing
+     */
     public Player(int posX, int posY, int guesses)
     {
         xPos = posX;
         yPos = posY;
         numGuesses = guesses;
     }
-    
+
     public int getPosX()
     {
         return xPos;
     }
-    
+
     public int getPosY()
     {
         return yPos;
     }
-    
+
     /**
      * takes two inputs (a guess) to see if the guess was correct
      */
@@ -42,12 +47,12 @@ public class Player
             return false;
         }
     }
-    
+
     public int getNumGuesses()
     {
         return numGuesses;
     }
-    
+
     /**
      * change the remaining amount of guesses by amount
      */

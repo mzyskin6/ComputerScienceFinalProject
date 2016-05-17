@@ -10,6 +10,10 @@ public class NotPlayer
     private int xPos;
     private int yPos;
     
+    /**
+     * Constructor
+     * two inputs used to store position on grid
+     */
     public NotPlayer(int posX, int posY)
     {
         xPos = posX;
@@ -26,7 +30,8 @@ public class NotPlayer
         return yPos;
     }
     
-    /**takes two integers as input to check and see if those match the opponents position
+    /**
+     * takes two integers as input to check and see if those match the opponents position
      * the input is the users guess
      */
     public boolean checkGuess(int posX, int posY)
