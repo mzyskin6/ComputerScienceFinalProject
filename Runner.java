@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 /**
- * Write a description of class Runner here.
+ * Runner class
  * 
- * @author (your name) 
+ * @author Michael Zyskind 
  * @version (a version number or a date)
  */
 public class Runner
@@ -234,11 +234,14 @@ public class Runner
         }
     }
 
-    //player makes a guess
-    //will return 0, 1, or 2
-    //0 if the player runs out of guesses to make
-    //1 if the guess was correct
-    //2 if the guess was wrong but the player hasn't run out of guesses
+    
+    /**
+     * the players guess
+     * 
+     * return 0 if the player runs out of guesses to make
+     * return 1 if the guess was correct
+     * return 2 if the guess was wrong but the player hasn't run out of guesses
+     */
     public static int guess()
     {
         Scanner scan = new Scanner(System.in);
@@ -287,7 +290,10 @@ public class Runner
         }
     }
 
-    //will display information about the game and how to play
+    
+    /**
+     * all tutorial information
+     */
     public static void help()
     {
         System.out.println("The goal is to correctly guess where the opponent is");
@@ -302,7 +308,13 @@ public class Runner
         menu();
     }
 
-    //the opponent turn
+    
+    /**
+     * the opponents turn
+     * 
+     * randomly generates a valid position on the grid
+     * and guesses to see if the player is there
+     */
     public static void turn(String level)
     {
         int xPos = 0;
@@ -331,14 +343,10 @@ public class Runner
         {
             System.out.println("The Opponenet Guessed Correctly");
             hasLost = true;
-            //return true;
         }
         else
         {
             System.out.println("The opponent did not guess correctly");
-            //return false;
         }
-
-        //menu();
     }
 }

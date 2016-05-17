@@ -1,8 +1,8 @@
 
 /**
- * Write a description of class Player here.
+ * Defines the player
  * 
- * @author (your name) 
+ * @author Michael Zyskind
  * @version (a version number or a date)
  */
 public class Player
@@ -28,6 +28,9 @@ public class Player
         return yPos;
     }
     
+    /**
+     * takes two inputs (a guess) to see if the guess was correct
+     */
     public boolean checkGuess(int posX, int posY)
     {
         if(posX == xPos && posY == yPos)
@@ -45,6 +48,9 @@ public class Player
         return numGuesses;
     }
     
+    /**
+     * change the remaining amount of guesses by amount
+     */
     public int changeNumGuesses(int amount)
     {
         numGuesses -= amount;

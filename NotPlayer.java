@@ -1,8 +1,8 @@
 
 /**
- * Write a description of class NotPlayer here.
+ * Defines the opponent
  * 
- * @author (your name) 
+ * @author Michael Zyskind 
  * @version (a version number or a date)
  */
 public class NotPlayer
@@ -26,6 +26,9 @@ public class NotPlayer
         return yPos;
     }
     
+    /**takes two integers as input to check and see if those match the opponents position
+     * the input is the users guess
+     */
     public boolean checkGuess(int posX, int posY)
     {
         if(posX == xPos && posY == yPos)
