@@ -48,6 +48,9 @@ public class Player
         }
     }
 
+    /**
+     * gets the remaining number of guesses
+     */
     public int getNumGuesses()
     {
         return numGuesses;

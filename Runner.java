@@ -17,15 +17,24 @@ public class Runner
     private static String difficulty = "";
     private static String userInput = "";
 
+    /**
+     * main runner method, will set difficulty
+     * and create the grid, player, and opponent
+     */
     public static void main(String[] args)
     {
-        //String userInput = "";
         int intInputX = 0;
         int intInputY = 0;
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Select Difficulty: \nEasy, Medium, Hard");
-        difficulty = scan.next();
+
+        while(!difficulty.equals("Easy") && !difficulty.equals("easy") && 
+        !difficulty.equals("Medium") && !difficulty.equals("medium") && 
+        !difficulty.equals("Hard") && !difficulty.equals("hard"))
+        {
+            difficulty = scan.next();
+        }
 
         if(difficulty.equals("Easy") || difficulty.equals("easy"))
         {
@@ -150,48 +159,6 @@ public class Runner
         //System.out.println("\n" + opponent.getPosX() + "\n" + opponent.getPosY());
 
         menu();
-
-        //while(!hasLost && !(player.getNumGuesses() == 0) && !hasWon)
-        //{   
-        //             if(!(userInput.equals("Quit") && userInput.equals("quit")))
-        //             {
-        //                 System.out.println("\nSelect one of the following options: ");
-        //                 System.out.println("Guess, Help, or Quit");
-        //                 userInput = scan.next();
-        // 
-        //                 if(userInput.equals("Guess") || userInput.equals("guess"))
-        //                 {
-        //                     int guess = guess();
-        // 
-        //                     if(guess == 1)
-        //                     {
-        //                         hasWon = true;
-        //                     }
-        //                     else if(guess == 0)
-        //                     {
-        //                         hasLost = true;
-        //                     }
-        //                     else
-        //                     {
-        //                         turn(difficulty);
-        //                         menu();
-        //                     }
-        //                 }
-        //                 else if(userInput.equals("Help") || userInput.equals("help"))
-        //                 {
-        //                     help();
-        //                 }
-        //                 else if(userInput.equals("Quit") || userInput.equals("quit"))
-        //                 {
-        // 
-        //                 }
-        //                 else
-        //                 {
-        //                     System.out.println("That was not a valid choice");
-        //                     menu();
-        //                 }
-        //             }
-        //}
     }
 
     /**
@@ -200,7 +167,6 @@ public class Runner
      */
     public static void menu()
     {   
-        //String userInput = "";
         Scanner scan = new Scanner(System.in);
 
         if(hasLost || player.getNumGuesses() == 0)
@@ -244,7 +210,12 @@ public class Runner
         }
         else if(userInput.equals("Quit") || userInput.equals("quit"))
         {
-            return;
+            return; //leave this in, it prevents an overflow error
+        }
+        else
+        {
+            System.out.println("\nThat was not a valid choice");
+            menu();
         }
     }
 
