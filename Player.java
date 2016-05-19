@@ -7,45 +7,19 @@
  */
 public class Player
 {
-    private int xPos;
-    private int yPos;
-    private int numGuesses;
+    private int numGuesses; //total number of guesses that can be made
+    private int spacesOnGrid; //number of X and Y positions on the grid
+    private int spacesCorrectlyGuessed; //number of (X, Y) positions(of the opponent)correctly guessed
 
     /**
      * Constructor
      * inputs posX and posY store the position on the grid
      * input guesses stores the number of guesses the player can make before losing
      */
-    public Player(int posX, int posY, int guesses)
+    public Player(int guesses, int numSpacesOnGrid)
     {
-        xPos = posX;
-        yPos = posY;
         numGuesses = guesses;
-    }
-
-    public int getPosX()
-    {
-        return xPos;
-    }
-
-    public int getPosY()
-    {
-        return yPos;
-    }
-
-    /**
-     * takes two inputs (a guess) to see if the guess was correct
-     */
-    public boolean checkGuess(int posX, int posY)
-    {
-        if(posX == xPos && posY == yPos)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        spacesOnGrid = numSpacesOnGrid;
     }
 
     /**
@@ -63,5 +37,16 @@ public class Player
     {
         numGuesses -= amount;
         return numGuesses;
+    }
+    
+    public int getNumCorrectGuesses()
+    {
+        return spacesCorrectlyGuessed;
+    }
+    
+    public int setNumCorrectGuesses(int amount)
+    {
+        spacesCorrectlyGuessed += amount;
+        return spacesCorrectlyGuessed;
     }
 }

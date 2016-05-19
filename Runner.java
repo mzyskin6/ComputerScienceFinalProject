@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.*;
 
 /**
  * Runner class
@@ -9,18 +10,17 @@ import java.util.Scanner;
 public class Runner
 {
     private static GridManager grid = new GridManager(0, 0);
-    private static Player player = new Player(0, 0, 0);
+    private static Player player = new Player(0, 0);
     private static NotPlayer opponent = new NotPlayer(0, 0);
 
     private static boolean hasWon = false;
     private static boolean hasLost = false;
     private static String difficulty = "";
     private static String userInput = "";
+    
+    private static List<PosOnGrid> playerPositions = new ArrayList<PosOnGrid>();
+    private static List<PosOnGrid> opponentPositions = new ArrayList<PosOnGrid>();
 
-    /**
-     * main runner method, will set difficulty
-     * and create the grid, player, and opponent
-     */
     public static void main(String[] args)
     {
         int intInputX = 0;
@@ -55,7 +55,7 @@ public class Runner
                 intInputY = scan.nextInt();
             }
 
-            player = new Player(intInputX, intInputY, 5);
+            player = new Player(5, 2);
 
             int xPos = (int)(Math.random() * 6);
             int yPos = (int)(Math.random() * 6);
@@ -91,7 +91,7 @@ public class Runner
                 intInputY = scan.nextInt();
             }
 
-            player = new Player(intInputX, intInputY, 8);
+            player = new Player(8, 3);
 
             int xPos = (int)(Math.random() * 10);
             int yPos = (int)(Math.random() * 10);
@@ -127,7 +127,7 @@ public class Runner
                 intInputY = scan.nextInt();
             }
 
-            player = new Player(intInputX, intInputY, 12);
+            player = new Player(12, 4);
 
             int xPos = (int)(Math.random() * 14);
             int yPos = (int)(Math.random() * 14);
@@ -161,6 +161,7 @@ public class Runner
         menu();
     }
 
+    
     /**
      * the menu displayed at the beginning of each turn
      * The user will use this to select their action for the next turn
@@ -168,7 +169,7 @@ public class Runner
     public static void menu()
     {   
         Scanner scan = new Scanner(System.in);
-
+        
         if(hasLost || player.getNumGuesses() == 0)
         {
             System.out.println("\nGAME OVER");
@@ -219,6 +220,7 @@ public class Runner
         }
     }
 
+    
     /**
      * the players guess
      * 
@@ -274,6 +276,7 @@ public class Runner
         }
     }
 
+    
     /**
      * all tutorial information
      */
@@ -291,6 +294,7 @@ public class Runner
         menu();
     }
 
+    
     /**
      * the opponents turn
      * 
@@ -320,15 +324,25 @@ public class Runner
         }
 
         grid.setPosOnGrid(xPos, yPos, false);
-
-        if(player.checkGuess(xPos, yPos))
+        
+        boolean guessCheck = false;
+        for(int i = 0; i < playerPositions.size(); i++)
+        {
+            if(playerPositions.get(i).checkGuess(xPos, yPos))
+            {
+                guessCheck = true;
+            }
+        }
+        
+        //if(player.checkGuess(xPos, yPos))
+        if(guessCheck)
         {
             System.out.println("The Opponenet Guessed Correctly");
-            hasLost = true;
+            //hasLost = true;
         }
         else
         {
             System.out.println("The opponent did not guess correctly");
-        }
+        }   
     }
 }
