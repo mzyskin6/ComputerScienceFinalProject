@@ -185,8 +185,9 @@ public class Runner
     public static void menu()
     {   
         Scanner scan = new Scanner(System.in);
-
-        if(hasLost || player.getNumGuesses() == 0)
+        
+        if(hasLost || player.getNumGuesses() == 0 || 
+        opponent.getNumCorrectGuesses() == player.getNumSpacesOnGrid())
         {
             System.out.println("\nGAME OVER");
         }
@@ -275,6 +276,7 @@ public class Runner
             if(checkAllSpaces(xPos, yPos, false))
             {
                 System.out.println("\nCorrect!");
+                player.setNumCorrectGuesses(1);
                 return 1;
             }
             else
@@ -339,7 +341,6 @@ public class Runner
 
         grid.setPosOnGrid(xPos, yPos, false);
 
-        //if(player.checkGuess(xPos, yPos))
         if(checkAllSpaces(xPos, yPos, true))
         {
             System.out.println("The Opponenet Guessed Correctly");
@@ -347,6 +348,7 @@ public class Runner
             if(opponent.getNumCorrectGuesses() < opponent.getNumSpacesOnGrid())
             {
                 opponent.setNumCorrectGuesses(1);
+                System.out.println("Opponent Correct guesses: " + opponent.getNumCorrectGuesses());
             }
             else
             {
@@ -359,6 +361,11 @@ public class Runner
         }   
     }
 
+    
+    /**
+     * inputs of the space to check (posX, posY) and
+     * if the player or opponent spaces should be checked (checkPlayer)
+     */
     public static boolean checkAllSpaces(int posX, int posY, boolean checkPlayer)
     {
         if(checkPlayer)
