@@ -11,15 +11,18 @@ public class Runner
 {
     private static GridManager grid = new GridManager(0, 0);
     private static Player player = new Player(0, 0);
-    private static NotPlayer opponent = new NotPlayer(0, 0);
+    private static NotPlayer opponent = new NotPlayer(0);
 
     private static boolean hasWon = false;
     private static boolean hasLost = false;
     private static String difficulty = "";
     private static String userInput = "";
-    
+
     private static List<PosOnGrid> playerPositions = new ArrayList<PosOnGrid>();
     private static List<PosOnGrid> opponentPositions = new ArrayList<PosOnGrid>();
+
+    private static Iterator playerList = playerPositions.iterator();
+    private static Iterator opponentList = opponentPositions.iterator();
 
     public static void main(String[] args)
     {
@@ -40,37 +43,49 @@ public class Runner
         {
             grid = new GridManager(6, 6);
 
-            System.out.println("Pick two integers between 0 and 5: ");
-            intInputX = scan.nextInt();
-            if(intInputX > 5 || intInputX < 0)
+            while(playerPositions.size() < 2)
             {
-                System.out.println("Not a valid choice, number must be an integer between 0 and 5");
+                System.out.println("Pick two integers between 0 and 5: ");
                 intInputX = scan.nextInt();
-            }
+                if(intInputX > 5 || intInputX < 0)
+                {
+                    System.out.println("Not a valid choice, number must be an integer between 0 and 5");
+                    intInputX = scan.nextInt();
+                }
 
-            intInputY = scan.nextInt();
-            if(intInputY > 5 || intInputY < 0)
-            {
-                System.out.println("Not a valid choice, number must be an integer between 0 and 5");
                 intInputY = scan.nextInt();
+                if(intInputY > 5 || intInputY < 0)
+                {
+                    System.out.println("Not a valid choice, number must be an integer between 0 and 5");
+                    intInputY = scan.nextInt();
+                }
+
+                PosOnGrid newSpace = new PosOnGrid(intInputX, intInputY);
+                playerPositions.add(newSpace);
             }
 
             player = new Player(5, 2);
 
-            int xPos = (int)(Math.random() * 6);
-            int yPos = (int)(Math.random() * 6);
-
-            while(xPos == intInputX)
+            while(opponentPositions.size() < 2)
             {
-                xPos = (int)(Math.random() * 6);
+                int xPos = (int)(Math.random() * 6);
+                int yPos = (int)(Math.random() * 6);
+
+                while(xPos == intInputX)
+                {
+                    xPos = (int)(Math.random() * 6);
+                }
+
+                while(yPos == intInputY)
+                {
+                    yPos = (int)(Math.random() * 6);
+                }
+
+                PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
+                opponentPositions.add(newSpace);
             }
 
-            while(yPos == intInputY)
-            {
-                yPos = (int)(Math.random() * 6);
-            }
-
-            opponent = new NotPlayer(xPos, yPos);
+            opponent = new NotPlayer(2);
         }
         else if(difficulty.equals("Medium") || difficulty.equals("medium"))
         {
@@ -106,7 +121,7 @@ public class Runner
                 yPos = (int)(Math.random() * 10);
             }
 
-            opponent = new NotPlayer(xPos, yPos);
+            opponent = new NotPlayer(3);
         }
         else if(difficulty.equals("Hard") || difficulty.equals("hard"))
         {
@@ -142,26 +157,27 @@ public class Runner
                 yPos = (int)(Math.random() * 14);
             }
 
-            opponent = new NotPlayer(xPos, yPos);
+            opponent = new NotPlayer(4);
         }else{
             System.out.println("That was not a valid option\n");
             System.out.println("Select Difficulty: \nEasy, Medium, Hard");
             difficulty = scan.next();
         }
 
+        //cheats
+        for(int i = 0; i < opponentPositions.size(); i++)
+        {
+            System.out.println();
+            System.out.println(opponentPositions.get(i).getPosX());
+            System.out.println(opponentPositions.get(i).getPosY());
+        }
+
         System.out.println();
         help();
-
-        System.out.println();
-        grid.drawGrid();
-
-        //cheats
-        //System.out.println("\n" + opponent.getPosX() + "\n" + opponent.getPosY());
 
         menu();
     }
 
-    
     /**
      * the menu displayed at the beginning of each turn
      * The user will use this to select their action for the next turn
@@ -169,7 +185,7 @@ public class Runner
     public static void menu()
     {   
         Scanner scan = new Scanner(System.in);
-        
+
         if(hasLost || player.getNumGuesses() == 0)
         {
             System.out.println("\nGAME OVER");
@@ -220,7 +236,6 @@ public class Runner
         }
     }
 
-    
     /**
      * the players guess
      * 
@@ -256,7 +271,8 @@ public class Runner
 
             grid.setPosOnGrid(xPos, yPos, true);
 
-            if(opponent.checkGuess(xPos, yPos))
+            //if(opponent.checkGuess(xPos, yPos))
+            if(checkAllSpaces(xPos, yPos, false))
             {
                 System.out.println("\nCorrect!");
                 return 1;
@@ -276,7 +292,6 @@ public class Runner
         }
     }
 
-    
     /**
      * all tutorial information
      */
@@ -294,7 +309,6 @@ public class Runner
         menu();
     }
 
-    
     /**
      * the opponents turn
      * 
@@ -324,25 +338,53 @@ public class Runner
         }
 
         grid.setPosOnGrid(xPos, yPos, false);
-        
-        boolean guessCheck = false;
-        for(int i = 0; i < playerPositions.size(); i++)
-        {
-            if(playerPositions.get(i).checkGuess(xPos, yPos))
-            {
-                guessCheck = true;
-            }
-        }
-        
+
         //if(player.checkGuess(xPos, yPos))
-        if(guessCheck)
+        if(checkAllSpaces(xPos, yPos, true))
         {
             System.out.println("The Opponenet Guessed Correctly");
-            //hasLost = true;
+
+            if(opponent.getNumCorrectGuesses() < opponent.getNumSpacesOnGrid())
+            {
+                opponent.setNumCorrectGuesses(1);
+            }
+            else
+            {
+                hasLost = true;
+            }
         }
         else
         {
             System.out.println("The opponent did not guess correctly");
         }   
+    }
+
+    public static boolean checkAllSpaces(int posX, int posY, boolean checkPlayer)
+    {
+        if(checkPlayer)
+        {   
+            for(int i = 0; i < playerPositions.size(); i++)
+            {
+                if(playerPositions.get(i).checkGuess(posX, posY))
+                {
+                    //playerList.remove();
+                    return true;
+                }
+                //playerList.next();
+            }
+        }
+        else
+        {
+            for(int i = 0; i < opponentPositions.size(); i++)
+            {
+                if(opponentPositions.get(i).checkGuess(posX, posY))
+                {
+                    //opponentList.remove();
+                    return true;
+                }
+                //opponentList.next();
+            }
+        }
+        return false;
     }
 }

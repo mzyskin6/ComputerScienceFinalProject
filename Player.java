@@ -39,6 +39,11 @@ public class Player
         return numGuesses;
     }
     
+    public int getNumSpacesOnGrid()
+    {
+        return spacesOnGrid;
+    }
+    
     public int getNumCorrectGuesses()
     {
         return spacesCorrectlyGuessed;

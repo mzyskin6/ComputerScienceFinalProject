@@ -7,42 +7,31 @@
  */
 public class NotPlayer
 {
-    private int xPos;
-    private int yPos;
+    private int spacesOnGrid; //total number of spaces on the grid
+    private int spacesCorrectlyGuessed; //total number of player spaces correctly guessed
     
     /**
      * Constructor
      * two inputs used to store position on grid
      */
-    public NotPlayer(int posX, int posY)
+    public NotPlayer(int numSpacesOnGrid)
     {
-        xPos = posX;
-        yPos = posY;
+        spacesOnGrid = numSpacesOnGrid;
     }
     
-    public int getPosX()
+    public int getNumSpacesOnGrid()
     {
-        return xPos;
+        return spacesOnGrid;
     }
     
-    public int getPosY()
+    public int getNumCorrectGuesses()
     {
-        return yPos;
+        return spacesCorrectlyGuessed;
     }
     
-    /**
-     * takes two integers as input to check and see if those match the opponents position
-     * the input is the users guess
-     */
-    public boolean checkGuess(int posX, int posY)
+    public int setNumCorrectGuesses(int amount)
     {
-        if(posX == xPos && posY == yPos)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        spacesCorrectlyGuessed += amount;
+        return spacesCorrectlyGuessed;
     }
 }
