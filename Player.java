@@ -5,7 +5,7 @@
  * @author Michael Zyskind
  * @version (a version number or a date)
  */
-public class Player
+public class Player extends PlayerType
 {
     private int numGuesses; //total number of guesses that can be made
     private int spacesOnGrid; //number of X and Y positions on the grid

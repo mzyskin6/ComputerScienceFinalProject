@@ -5,7 +5,7 @@
  * @author Michael Zyskind 
  * @version (a version number or a date)
  */
-public class NotPlayer
+public class NotPlayer extends PlayerType
 {
     private int spacesOnGrid; //total number of spaces on the grid
     private int spacesCorrectlyGuessed; //total number of player spaces correctly guessed
