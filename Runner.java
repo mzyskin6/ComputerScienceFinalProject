@@ -61,6 +61,7 @@ public class Runner
                 }
 
                 PosOnGrid newSpace = new PosOnGrid(intInputX, intInputY);
+
                 playerPositions.add(newSpace);
             }
 
@@ -91,34 +92,48 @@ public class Runner
         {
             grid = new GridManager(10, 10);
 
-            System.out.println("Pick two integers between 0 and 9: ");
-            intInputX = scan.nextInt();
-            if(intInputX > 9 || intInputX < 0)
+            while(playerPositions.size() < 3)
             {
-                System.out.println("Not a valid choice, number must be an integer between 0 and 9");
-                intInputX = scan.nextInt();
-            }
 
-            intInputY = scan.nextInt();
-            if(intInputY > 9 || intInputY < 0)
-            {
-                System.out.println("Not a valid choice, number must be an integer between 0 and 9");
+                System.out.println("Pick two integers between 0 and 9: ");
+                intInputX = scan.nextInt();
+                if(intInputX > 9 || intInputX < 0)
+                {
+                    System.out.println("Not a valid choice, number must be an integer between 0 and 9");
+                    intInputX = scan.nextInt();
+                }
+
                 intInputY = scan.nextInt();
+                if(intInputY > 9 || intInputY < 0)
+                {
+                    System.out.println("Not a valid choice, number must be an integer between 0 and 9");
+                    intInputY = scan.nextInt();
+                }
+
+                PosOnGrid newSpace = new PosOnGrid(intInputX, intInputY);
+                playerPositions.add(newSpace);
             }
 
             player = new Player(8, 3);
 
-            int xPos = (int)(Math.random() * 10);
-            int yPos = (int)(Math.random() * 10);
-
-            while(xPos == intInputX)
+            while(opponentPositions.size() < 3)
             {
-                xPos = (int)(Math.random() * 10);
-            }
 
-            while(yPos == intInputY)
-            {
-                yPos = (int)(Math.random() * 10);
+                int xPos = (int)(Math.random() * 10);
+                int yPos = (int)(Math.random() * 10);
+
+                while(xPos == intInputX)
+                {
+                    xPos = (int)(Math.random() * 10);
+                }
+
+                while(yPos == intInputY)
+                {
+                    yPos = (int)(Math.random() * 10);
+                }
+
+                PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
+                opponentPositions.add(newSpace);
             }
 
             opponent = new NotPlayer(3);
@@ -127,34 +142,48 @@ public class Runner
         {
             grid = new GridManager(14, 14);
 
-            System.out.println("Pick two integers between 0 and 13: ");
-            intInputX = scan.nextInt();
-            if(intInputX > 13 || intInputX < 0)
+            while(playerPositions.size() < 4)
             {
-                System.out.println("Not a valid choice, number must be an integer between 0 and 13");
-                intInputX = scan.nextInt();
-            }
 
-            intInputY = scan.nextInt();
-            if(intInputY > 13 || intInputY < 0)
-            {
-                System.out.println("Not a valid choice, number must be an integer between 0 and 13");
+                System.out.println("Pick two integers between 0 and 13: ");
+                intInputX = scan.nextInt();
+                if(intInputX > 13 || intInputX < 0)
+                {
+                    System.out.println("Not a valid choice, number must be an integer between 0 and 13");
+                    intInputX = scan.nextInt();
+                }
+
                 intInputY = scan.nextInt();
+                if(intInputY > 13 || intInputY < 0)
+                {
+                    System.out.println("Not a valid choice, number must be an integer between 0 and 13");
+                    intInputY = scan.nextInt();
+                }
+
+                PosOnGrid newSpace = new PosOnGrid(intInputX, intInputY);
+                playerPositions.add(newSpace);
             }
 
             player = new Player(12, 4);
 
-            int xPos = (int)(Math.random() * 14);
-            int yPos = (int)(Math.random() * 14);
-
-            while(xPos == intInputX)
+            while(opponentPositions.size() < 4)
             {
-                xPos = (int)(Math.random() * 14);
-            }
 
-            while(yPos == intInputY)
-            {
-                yPos = (int)(Math.random() * 14);
+                int xPos = (int)(Math.random() * 14);
+                int yPos = (int)(Math.random() * 14);
+
+                while(xPos == intInputX)
+                {
+                    xPos = (int)(Math.random() * 14);
+                }
+
+                while(yPos == intInputY)
+                {
+                    yPos = (int)(Math.random() * 14);
+                }
+
+                PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
+                opponentPositions.add(newSpace);
             }
 
             opponent = new NotPlayer(4);
@@ -185,7 +214,9 @@ public class Runner
     public static void menu()
     {   
         Scanner scan = new Scanner(System.in);
-        
+
+        //System.out.println("\n" + player.getNumSpacesOnGrid() + "\n" + opponent.getNumCorrectGuesses());
+
         if(hasLost || player.getNumGuesses() == 0 || 
         opponent.getNumCorrectGuesses() == player.getNumSpacesOnGrid())
         {
@@ -210,7 +241,12 @@ public class Runner
 
             if(guess == 1)
             {
-                hasWon = true;
+                if(player.getNumCorrectGuesses() == opponent.getNumSpacesOnGrid())
+                {
+                    System.out.println("YOU WIN");
+                    hasWon = true;
+                }
+                menu();
             }
             else if(guess == 0)
             {
@@ -272,11 +308,12 @@ public class Runner
 
             grid.setPosOnGrid(xPos, yPos, true);
 
-            //if(opponent.checkGuess(xPos, yPos))
             if(checkAllSpaces(xPos, yPos, false))
             {
                 System.out.println("\nCorrect!");
                 player.setNumCorrectGuesses(1);
+                //player.changeNumGuesses(1);
+                //System.out.println("Remaining guesses: " + player.getNumGuesses());
                 return 1;
             }
             else
@@ -361,7 +398,6 @@ public class Runner
         }   
     }
 
-    
     /**
      * inputs of the space to check (posX, posY) and
      * if the player or opponent spaces should be checked (checkPlayer)
