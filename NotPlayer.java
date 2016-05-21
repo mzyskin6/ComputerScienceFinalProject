@@ -29,6 +29,10 @@ public class NotPlayer extends PlayerType
         return spacesCorrectlyGuessed;
     }
     
+    /**
+     * sets the number of correct guesses
+     * uses the integer input amount as the amount to change
+     */
     public int setNumCorrectGuesses(int amount)
     {
         spacesCorrectlyGuessed += amount;

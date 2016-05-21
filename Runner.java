@@ -30,15 +30,30 @@ public class Runner
         int intInputY = 0;
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Select Difficulty: \nEasy, Medium, Hard");
+        System.out.println("Select Difficulty (Or type the number): \n1: Easy\n2: Medium\n3: Hard");
 
         while(!difficulty.equals("Easy") && !difficulty.equals("easy") && 
         !difficulty.equals("Medium") && !difficulty.equals("medium") && 
         !difficulty.equals("Hard") && !difficulty.equals("hard"))
         {
             difficulty = scan.next();
+            
+            if(difficulty.equals("1"))
+            {
+                difficulty = "easy";
+            }
+            if(difficulty.equals("2"))
+            {
+                difficulty = "medium";
+            }
+            if(difficulty.equals("3"))
+            {
+                difficulty = "hard";
+            }
         }
 
+        System.out.println("\nPick diferent sets of numbers to represent\nyour spots on the grid\n");
+        
         if(difficulty.equals("Easy") || difficulty.equals("easy"))
         {
             grid = new GridManager(6, 6);
@@ -215,12 +230,13 @@ public class Runner
     {   
         Scanner scan = new Scanner(System.in);
 
-        //System.out.println("\n" + player.getNumSpacesOnGrid() + "\n" + opponent.getNumCorrectGuesses());
-
+        inputCheck:
         if(hasLost || player.getNumGuesses() == 0 || 
         opponent.getNumCorrectGuesses() == player.getNumSpacesOnGrid())
         {
             System.out.println("\nGAME OVER");
+            //break inputCheck;
+            return;
         }
         else
         {
@@ -235,6 +251,7 @@ public class Runner
             }
         }
 
+        mainLoop:
         if(userInput.equals("Guess") || userInput.equals("guess"))
         {
             int guess = guess();
@@ -245,12 +262,20 @@ public class Runner
                 {
                     System.out.println("YOU WIN");
                     hasWon = true;
+                    System.exit(0);
+                    //break mainLoop;
+                    //return;
                 }
-                menu();
+                else
+                {
+                    menu();
+                }
             }
             else if(guess == 0)
             {
                 hasLost = true;
+                System.exit(0);
+                //break mainLoop;
             }
             else
             {
@@ -264,7 +289,9 @@ public class Runner
         }
         else if(userInput.equals("Quit") || userInput.equals("quit"))
         {
-            return; //leave this in, it prevents an overflow error
+            break mainLoop;
+            //System.exit(0);
+            //return; //leave this in, it prevents an overflow error
         }
         else
         {
@@ -336,6 +363,8 @@ public class Runner
      */
     public static void help()
     {
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("HELP:\n");
         System.out.println("The goal is to correctly guess where the opponent is");
         System.out.println("\n" + "The user will have several options each turn");
         System.out.println("Guess: Make a guess, there are a limited number of guesses");
@@ -344,6 +373,7 @@ public class Runner
 
         System.out.println("\nX represents where the player has guessed");
         System.out.println("O represents where the opponent has guessed");
+        System.out.println("------------------------------------------------------------------");
 
         menu();
     }

@@ -49,6 +49,9 @@ public class Player extends PlayerType
         return spacesCorrectlyGuessed;
     }
     
+    /**
+     * changes the number of correct guesses by amount
+     */
     public int setNumCorrectGuesses(int amount)
     {
         spacesCorrectlyGuessed += amount;

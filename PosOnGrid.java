@@ -11,6 +11,10 @@ public class PosOnGrid
     private int xPos;
     private int yPos;
     
+    /**
+     * constructor
+     * takes two integer inputs stores a space
+     */
     public PosOnGrid(int posX, int posY)
     {
         xPos = posX;
