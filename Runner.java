@@ -23,6 +23,9 @@ public class Runner
 
     private static Iterator playerList = playerPositions.iterator();
     private static Iterator opponentList = opponentPositions.iterator();
+    
+    private static int totalDuplicates = 0;
+    private static int listIndex = 0;
 
     public static void main(String[] args)
     {
@@ -30,14 +33,14 @@ public class Runner
         int intInputY = 0;
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Select Difficulty (Or type the number): \n1: Easy\n2: Medium\n3: Hard");
+        System.out.println("Select Difficulty (By typing the word (Or type the number)): \n1: Easy\n2: Medium\n3: Hard");
 
         while(!difficulty.equals("Easy") && !difficulty.equals("easy") && 
         !difficulty.equals("Medium") && !difficulty.equals("medium") && 
         !difficulty.equals("Hard") && !difficulty.equals("hard"))
         {
             difficulty = scan.next();
-            
+
             if(difficulty.equals("1"))
             {
                 difficulty = "easy";
@@ -53,7 +56,7 @@ public class Runner
         }
 
         System.out.println("\nPick diferent sets of numbers to represent\nyour spots on the grid\n");
-        
+
         if(difficulty.equals("Easy") || difficulty.equals("easy"))
         {
             grid = new GridManager(6, 6);
@@ -208,13 +211,46 @@ public class Runner
             difficulty = scan.next();
         }
 
-        //cheats
-        for(int i = 0; i < opponentPositions.size(); i++)
+        checkUsedSpaces();
+        //System.out.print(totalDuplicates + " total duplicates");
+        while(totalDuplicates != 0)
         {
-            System.out.println();
-            System.out.println(opponentPositions.get(i).getPosX());
-            System.out.println(opponentPositions.get(i).getPosY());
+            for(int i = 0; i < playerPositions.size() - 1; i++)
+            {
+                if(playerPositions.get(i).checkGuess(playerPositions.get(i+1).getPosX(), playerPositions.get(i+1).getPosY()))
+                {
+                    System.out.println("\nYou already used that space, \nPlease use a different space");
+                    System.out.print("New X Position: ");
+                    intInputX = scan.nextInt();
+                    //System.out.println();
+                    System.out.print("New Y Position: ");
+                    intInputY = scan.nextInt();
+
+                    PosOnGrid newSpace = new PosOnGrid(intInputX, intInputY);
+                    playerPositions.set(i+1, newSpace);
+                    
+                    totalDuplicates--;
+                    
+                    //checkUsedSpaces();
+                }
+            }
+            //System.out.print(totalDuplicates + " total duplicates");
+            //checkUsedSpaces();
         }
+
+        System.out.println("\nSpaces Selected: ");
+        for(int i = 0; i < playerPositions.size(); i++)
+        {
+            System.out.print("(" + playerPositions.get(i).getPosX() + "," + playerPositions.get(i).getPosY() + ") ");
+        }
+        
+        //cheats
+        //         for(int i = 0; i < opponentPositions.size(); i++)
+        //         {
+        //             System.out.println();
+        //             System.out.println(opponentPositions.get(i).getPosX());
+        //             System.out.println(opponentPositions.get(i).getPosY());
+        //         }
 
         System.out.println();
         help();
@@ -298,6 +334,48 @@ public class Runner
             System.out.println("\nThat was not a valid choice");
             menu();
         }
+    }
+
+    /**
+     * checks if the user repeated any spaces
+     * will return false if there are duplicate spaces in the playerPositions list
+     */
+    public static int checkUsedSpaces()
+    {
+        //int totalDuplicates = 0;
+        
+        for(int i = 0; i < playerPositions.size() - 1; i++)
+        {
+            if(playerPositions.get(i).checkGuess(playerPositions.get(i+1).getPosX(), playerPositions.get(i+1).getPosY()))
+            {
+                totalDuplicates++;
+                indexInList(i);
+            }
+        }
+        
+        for(int i = 0; i < playerPositions.size() - 2; i++)
+        {
+            if(playerPositions.get(i).checkGuess(playerPositions.get(i+2).getPosX(), playerPositions.get(i+2).getPosY()))
+            {
+                totalDuplicates++;
+            }
+        }
+        
+        for(int i = 0; i < playerPositions.size() - 3; i++)
+        {
+            if(playerPositions.get(i).checkGuess(playerPositions.get(i+3).getPosX(), playerPositions.get(i+3).getPosY()))
+            {
+                totalDuplicates++;
+            }
+        }
+        
+        return totalDuplicates;
+    }
+    
+    public static int indexInList(int index)
+    {
+        listIndex = index;
+        return listIndex;
     }
 
     /**

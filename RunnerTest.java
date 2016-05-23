@@ -42,10 +42,15 @@ public class RunnerTest
     
     /**
      * tests the checkAllSpaces method in the runner class
+     * THIS TEST IS NOT YET FINISHED AND DOES NOT WORK
      */
     @Test
     public void testCheckSpaces()
     {
+        Runner newRunner = new Runner();
         
+        PosOnGrid newPos = new PosOnGrid(4, 2);
+        
+        assertEquals("Test does not work properly", true, newRunner.checkAllSpaces(4, 2, true));
     }
 }
