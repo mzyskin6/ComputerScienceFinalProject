@@ -5,7 +5,7 @@ import java.util.*;
  * Runner class
  * 
  * @author Michael Zyskind 
- * @version (a version number or a date)
+ * @version May 24, 2016
  */
 public class Runner
 {
@@ -31,12 +31,12 @@ public class Runner
         int intInputX = 0;
         int intInputY = 0;
         Scanner scan = new Scanner(System.in);
-        
+
         System.out.println("Guess!");
         System.out.println("Created By: Michael Zyskind");
         System.out.println("-----------------------------------------");
         System.out.println();
-        
+
         System.out.println("Select Difficulty (By typing the word (Or type the number)): \n1: Easy\n2: Medium\n3: Hard");
 
         while(!difficulty.equals("Easy") && !difficulty.equals("easy") && 
@@ -49,10 +49,12 @@ public class Runner
             {
                 difficulty = "easy";
             }
+            
             if(difficulty.equals("2"))
             {
                 difficulty = "medium";
             }
+            
             if(difficulty.equals("3"))
             {
                 difficulty = "hard";
@@ -162,6 +164,7 @@ public class Runner
                     PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
                     playerPositions.set(numSpaces-1, replaceSpace);
                 }
+                
                 if(!checkUsedSpacesMedium())
                 {
                     System.out.println("\nYou already used that space, \nPlease use a different space");
@@ -238,6 +241,7 @@ public class Runner
                     PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
                     playerPositions.set(numSpaces-1, replaceSpace);
                 }
+                
                 if(!checkUsedSpacesMedium())
                 {
                     System.out.println("\nYou already used that space, \nPlease use a different space");
@@ -250,6 +254,7 @@ public class Runner
                     PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
                     playerPositions.set(numSpaces-1, replaceSpace);
                 }
+                
                 if(!checkUsedSpacesHard())
                 {
                     System.out.println("\nYou already used that space, \nPlease use a different space");
@@ -312,31 +317,22 @@ public class Runner
 
         System.out.println();
         help();
-
-//         if(!userInput.equals("4"))
-//         {
-//         menu();
-//     }
-//     else{
-//      return;   
-//     }
     }
 
+    
     /**
      * the menu displayed at the beginning of each turn
      * The user will use this to select their action for the next turn
      */
     public static void menu()
     {   
-        int userInputInt = 0;
         Scanner scan = new Scanner(System.in);
 
-        inputCheck:
         if(hasLost || player.getNumGuesses() == 0 || 
         opponent.getNumCorrectGuesses() == player.getNumSpacesOnGrid())
         {
             System.out.println("\nGAME OVER");
-            //break inputCheck;
+
             return;
         }
         else
@@ -347,25 +343,16 @@ public class Runner
                 grid.drawGrid();
 
                 System.out.println("\nSelect one of the following options(Type the number): ");
-                //System.out.println("Guess, Help, Show Score, or Quit");
+
                 System.out.println("1: Guess");
                 System.out.println("2: Help");
                 System.out.println("3: Show Score");
                 System.out.println("4: Quit");
-//                 try
-//                 {
-//                     userInputInt = scan.nextInt();
-//                 }
-//                 catch(InputMismatchException exception)
-//                 {
-//                     System.out.println("That was not a valid choice, \nPlease try again");
-//                     menu();
-//                 }
-userInput = scan.next();
+
+                userInput = scan.next();
             }
         }
 
-        mainLoop:
         if(userInput.equals("1")) //user selection of guess
         {
             int guess = guess();
@@ -376,9 +363,8 @@ userInput = scan.next();
                 {
                     System.out.println("YOU WIN");
                     hasWon = true;
-                    System.exit(0);
-                    //break mainLoop;
-                    //return;
+                    //System.exit(0);
+                    return;
                 }
                 else
                 {
@@ -388,8 +374,8 @@ userInput = scan.next();
             else if(guess == 0)
             {
                 hasLost = true;
-                System.exit(0);
-                //break mainLoop;
+                //System.exit(0);
+                return;
             }
             else
             {
@@ -407,8 +393,6 @@ userInput = scan.next();
         }
         else if(userInput.equals("4")) //user selection of quit
         {
-            //break mainLoop;
-            //System.exit(0);
             return;
         }
         else
@@ -426,21 +410,17 @@ userInput = scan.next();
      */
     public static boolean checkUsedSpaces()
     {
-        //int totalDuplicates = 0;
-
         for(int i = 0; i < playerPositions.size() - 1; i++)
         {
             if(playerPositions.get(i).checkGuess(playerPositions.get(i+1).getPosX(), playerPositions.get(i+1).getPosY()))
             {
-                //totalDuplicates++;
-                //duplicateIndeces.add(i);
                 return false;
             }
         }
 
         return true;
     }
-    
+
     /**
      * checks if the user repeated any spaces
      * will return false if there are duplicate spaces in the playerPositions list
@@ -453,15 +433,13 @@ userInput = scan.next();
         {
             if(playerPositions.get(i).checkGuess(playerPositions.get(i+2).getPosX(), playerPositions.get(i+2).getPosY()))
             {
-                //totalDuplicates++;
-                //duplicateIndeces.add(i);
                 return false;
             }
         }
 
         return true;
     }
-    
+
     /**
      * checks if the user repeated any spaces
      * will return false if there are duplicate spaces in the playerPositions list
@@ -474,8 +452,6 @@ userInput = scan.next();
         {
             if(playerPositions.get(i).checkGuess(playerPositions.get(i+3).getPosX(), playerPositions.get(i+3).getPosY()))
             {
-                //totalDuplicates++;
-                //duplicateIndeces.add(i);
                 return false;
             }
         }
@@ -579,6 +555,7 @@ userInput = scan.next();
         System.out.println("\n" + "The user will have several options each turn");
         System.out.println("Guess: Make a guess, there are a limited number of guesses");
         System.out.println("Help: display this menu");
+        System.out.println("Show Score: Displays the spaces the player selected and the\n   number of correct guesses both the player and the opponent made");
         System.out.println("Quit: Exit");
 
         System.out.println("\nX represents where the player has guessed");

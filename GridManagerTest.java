@@ -9,7 +9,7 @@ import org.junit.Test;
  * The test class GridManagerTest.
  *
  * @author  Michael Zyskind
- * @version (a version number or a date)
+ * @version May 21, 2016
  */
 public class GridManagerTest
 {

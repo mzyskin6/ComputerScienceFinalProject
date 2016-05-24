@@ -8,8 +8,8 @@ import org.junit.Test;
 /**
  * The test class RunnerTest.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Michael Zyskind
+ * @version May 23, 2016
  */
 public class RunnerTest
 {
@@ -44,7 +44,7 @@ public class RunnerTest
      * tests the checkAllSpaces method in the runner class
      * THIS TEST IS NOT YET FINISHED AND DOES NOT WORK
      */
-    @Test
+    //@Test
     public void testCheckSpaces()
     {
         Runner newRunner = new Runner();

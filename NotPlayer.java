@@ -3,7 +3,7 @@
  * Defines the opponent
  * 
  * @author Michael Zyskind 
- * @version (a version number or a date)
+ * @version May 21, 2016
  */
 public class NotPlayer extends PlayerType
 {

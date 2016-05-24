@@ -3,7 +3,7 @@
  * creates and updates the grid
  * 
  * @author Michael Zyskind 
- * @version (a version number or a date)
+ * @version May 16, 2016
  */
 public class GridManager
 {

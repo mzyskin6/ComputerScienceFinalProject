@@ -4,7 +4,7 @@
  * defines some methods in both the Player and NotPlayer classes
  * 
  * @author Michael Zyskind
- * @version (version number or date here)
+ * @version 5/20/2016
  */
 public abstract class PlayerType
 {

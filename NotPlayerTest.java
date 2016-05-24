@@ -9,7 +9,7 @@ import org.junit.Test;
  * The test class NotPlayerTest.
  *
  * @author  Michael Zyskind
- * @version (a version number or a date)
+ * @version May 23, 2016
  */
 public class NotPlayerTest
 {
