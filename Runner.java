@@ -21,6 +21,8 @@ public class Runner
     private static List<PosOnGrid> playerPositions = new ArrayList<PosOnGrid>();
     private static List<PosOnGrid> opponentPositions = new ArrayList<PosOnGrid>();
 
+    private static List<PosOnGrid> guessedSpaces = new ArrayList<PosOnGrid>();
+
     private static Iterator playerList = playerPositions.iterator();
     private static Iterator opponentList = opponentPositions.iterator();
 
@@ -49,12 +51,12 @@ public class Runner
             {
                 difficulty = "easy";
             }
-            
+
             if(difficulty.equals("2"))
             {
                 difficulty = "medium";
             }
-            
+
             if(difficulty.equals("3"))
             {
                 difficulty = "hard";
@@ -164,7 +166,7 @@ public class Runner
                     PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
                     playerPositions.set(numSpaces-1, replaceSpace);
                 }
-                
+
                 if(!checkUsedSpacesMedium())
                 {
                     System.out.println("\nYou already used that space, \nPlease use a different space");
@@ -241,7 +243,7 @@ public class Runner
                     PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
                     playerPositions.set(numSpaces-1, replaceSpace);
                 }
-                
+
                 if(!checkUsedSpacesMedium())
                 {
                     System.out.println("\nYou already used that space, \nPlease use a different space");
@@ -254,7 +256,7 @@ public class Runner
                     PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
                     playerPositions.set(numSpaces-1, replaceSpace);
                 }
-                
+
                 if(!checkUsedSpacesHard())
                 {
                     System.out.println("\nYou already used that space, \nPlease use a different space");
@@ -319,7 +321,6 @@ public class Runner
         help();
     }
 
-    
     /**
      * the menu displayed at the beginning of each turn
      * The user will use this to select their action for the next turn
@@ -517,6 +518,46 @@ public class Runner
             {
                 System.out.println("\nThat was not valid, try again");
                 yPos = scan.nextInt();
+            }
+
+            PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
+            guessedSpaces.add(newSpace);
+
+            if(guessedSpaces.size() > 1)
+            {
+                for(int x = 0; x < guessedSpaces.size(); x++)
+                {
+                    for(int i = guessedSpaces.size() - 1; i > 0; i--)
+                    {
+                        if(guessedSpaces.get(i).checkGuess(guessedSpaces.get(x).getPosX(), guessedSpaces.get(x).getPosY()))
+                        {
+                            System.out.println("You already guessed that, \nTry again");
+
+                            System.out.println();
+
+                            System.out.println("\nPick an integer between 0 and " + grid.getNumRows());
+                            xPos = scan.nextInt();
+
+                            if(xPos >= grid.getNumRows())
+                            {
+                                System.out.println("\nThat was not valid, try again");
+                                xPos = scan.nextInt();
+                            }
+
+                            System.out.println("Pick an integer between 0 and " + grid.getNumCols());
+                            yPos = scan.nextInt();
+
+                            if(yPos >= grid.getNumCols())
+                            {
+                                System.out.println("\nThat was not valid, try again");
+                                yPos = scan.nextInt();
+                            }
+                            
+                            PosOnGrid replaceSpace = new PosOnGrid(xPos, yPos);
+                            guessedSpaces.set(x, replaceSpace);
+                        }
+                    }
+                }
             }
 
             grid.setPosOnGrid(xPos, yPos, true);
