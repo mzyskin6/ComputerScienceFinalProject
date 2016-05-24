@@ -23,16 +23,20 @@ public class Runner
 
     private static Iterator playerList = playerPositions.iterator();
     private static Iterator opponentList = opponentPositions.iterator();
-    
-    private static int totalDuplicates = 0;
-    private static int listIndex = 0;
+
+    private static int numSpaces = 0;
 
     public static void main(String[] args)
     {
         int intInputX = 0;
         int intInputY = 0;
         Scanner scan = new Scanner(System.in);
-
+        
+        System.out.println("Guess!");
+        System.out.println("Created By: Michael Zyskind");
+        System.out.println("-----------------------------------------");
+        System.out.println();
+        
         System.out.println("Select Difficulty (By typing the word (Or type the number)): \n1: Easy\n2: Medium\n3: Hard");
 
         while(!difficulty.equals("Easy") && !difficulty.equals("easy") && 
@@ -81,6 +85,20 @@ public class Runner
                 PosOnGrid newSpace = new PosOnGrid(intInputX, intInputY);
 
                 playerPositions.add(newSpace);
+                numSpaces++;
+
+                if(!checkUsedSpaces())
+                {
+                    System.out.println("\nYou already used that space, \nPlease use a different space");
+                    System.out.print("New X Position: ");
+                    intInputX = scan.nextInt();
+
+                    System.out.print("New Y Position: ");
+                    intInputY = scan.nextInt();
+
+                    PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
+                    playerPositions.set(numSpaces-1, replaceSpace);
+                }
             }
 
             player = new Player(5, 2);
@@ -130,6 +148,32 @@ public class Runner
 
                 PosOnGrid newSpace = new PosOnGrid(intInputX, intInputY);
                 playerPositions.add(newSpace);
+                numSpaces++;
+
+                if(!checkUsedSpaces())
+                {
+                    System.out.println("\nYou already used that space, \nPlease use a different space");
+                    System.out.print("New X Position: ");
+                    intInputX = scan.nextInt();
+
+                    System.out.print("New Y Position: ");
+                    intInputY = scan.nextInt();
+
+                    PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
+                    playerPositions.set(numSpaces-1, replaceSpace);
+                }
+                if(!checkUsedSpacesMedium())
+                {
+                    System.out.println("\nYou already used that space, \nPlease use a different space");
+                    System.out.print("New X Position: ");
+                    intInputX = scan.nextInt();
+
+                    System.out.print("New Y Position: ");
+                    intInputY = scan.nextInt();
+
+                    PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
+                    playerPositions.set(numSpaces-1, replaceSpace);
+                }
             }
 
             player = new Player(8, 3);
@@ -180,6 +224,44 @@ public class Runner
 
                 PosOnGrid newSpace = new PosOnGrid(intInputX, intInputY);
                 playerPositions.add(newSpace);
+                numSpaces++;
+
+                if(!checkUsedSpaces())
+                {
+                    System.out.println("\nYou already used that space, \nPlease use a different space");
+                    System.out.print("New X Position: ");
+                    intInputX = scan.nextInt();
+
+                    System.out.print("New Y Position: ");
+                    intInputY = scan.nextInt();
+
+                    PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
+                    playerPositions.set(numSpaces-1, replaceSpace);
+                }
+                if(!checkUsedSpacesMedium())
+                {
+                    System.out.println("\nYou already used that space, \nPlease use a different space");
+                    System.out.print("New X Position: ");
+                    intInputX = scan.nextInt();
+
+                    System.out.print("New Y Position: ");
+                    intInputY = scan.nextInt();
+
+                    PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
+                    playerPositions.set(numSpaces-1, replaceSpace);
+                }
+                if(!checkUsedSpacesHard())
+                {
+                    System.out.println("\nYou already used that space, \nPlease use a different space");
+                    System.out.print("New X Position: ");
+                    intInputX = scan.nextInt();
+
+                    System.out.print("New Y Position: ");
+                    intInputY = scan.nextInt();
+
+                    PosOnGrid replaceSpace = new PosOnGrid(intInputX, intInputY);
+                    playerPositions.set(numSpaces-1, replaceSpace);
+                }
             }
 
             player = new Player(12, 4);
@@ -211,39 +293,15 @@ public class Runner
             difficulty = scan.next();
         }
 
-        checkUsedSpaces();
-        //System.out.print(totalDuplicates + " total duplicates");
-        while(totalDuplicates != 0)
-        {
-            for(int i = 0; i < playerPositions.size() - 1; i++)
-            {
-                if(playerPositions.get(i).checkGuess(playerPositions.get(i+1).getPosX(), playerPositions.get(i+1).getPosY()))
-                {
-                    System.out.println("\nYou already used that space, \nPlease use a different space");
-                    System.out.print("New X Position: ");
-                    intInputX = scan.nextInt();
-                    //System.out.println();
-                    System.out.print("New Y Position: ");
-                    intInputY = scan.nextInt();
-
-                    PosOnGrid newSpace = new PosOnGrid(intInputX, intInputY);
-                    playerPositions.set(i+1, newSpace);
-                    
-                    totalDuplicates--;
-                    
-                    //checkUsedSpaces();
-                }
-            }
-            //System.out.print(totalDuplicates + " total duplicates");
-            //checkUsedSpaces();
-        }
-
+        /*#
+         * this displays the users final location
+         */
         System.out.println("\nSpaces Selected: ");
         for(int i = 0; i < playerPositions.size(); i++)
         {
             System.out.print("(" + playerPositions.get(i).getPosX() + "," + playerPositions.get(i).getPosY() + ") ");
         }
-        
+
         //cheats
         //         for(int i = 0; i < opponentPositions.size(); i++)
         //         {
@@ -264,6 +322,7 @@ public class Runner
      */
     public static void menu()
     {   
+        int userInputInt = 0;
         Scanner scan = new Scanner(System.in);
 
         inputCheck:
@@ -281,14 +340,27 @@ public class Runner
                 System.out.println("\n");
                 grid.drawGrid();
 
-                System.out.println("\nSelect one of the following options: ");
-                System.out.println("Guess, Help, or Quit");
-                userInput = scan.next();
+                System.out.println("\nSelect one of the following options(Type the number): ");
+                //System.out.println("Guess, Help, Show Score, or Quit");
+                System.out.println("1: Guess");
+                System.out.println("2: Help");
+                System.out.println("3: Show Score");
+                System.out.println("4: Quit");
+//                 try
+//                 {
+//                     userInputInt = scan.nextInt();
+//                 }
+//                 catch(InputMismatchException exception)
+//                 {
+//                     System.out.println("That was not a valid choice, \nPlease try again");
+//                     menu();
+//                 }
+userInput = scan.next();
             }
         }
 
         mainLoop:
-        if(userInput.equals("Guess") || userInput.equals("guess"))
+        if(userInput.equals("1")) //user selection of guess
         {
             int guess = guess();
 
@@ -319,15 +391,19 @@ public class Runner
                 menu();
             }
         }
-        else if(userInput.equals("Help") || userInput.equals("help"))
+        else if(userInput.equals("2")) //user selection of help
         {
             help();
         }
-        else if(userInput.equals("Quit") || userInput.equals("quit"))
+        else if(userInput.equals("3")) //user selection of show score
         {
-            break mainLoop;
-            //System.exit(0);
-            //return; //leave this in, it prevents an overflow error
+            displayPlayerAndOpponentPos();
+        }
+        else if(userInput.equals("4")) //user selection of quit
+        {
+            //break mainLoop;
+            System.exit(0);
+            //return;
         }
         else
         {
@@ -339,43 +415,93 @@ public class Runner
     /**
      * checks if the user repeated any spaces
      * will return false if there are duplicate spaces in the playerPositions list
+     * 
+     * CHECKS THE Xth WITH THE Xth+1
      */
-    public static int checkUsedSpaces()
+    public static boolean checkUsedSpaces()
     {
         //int totalDuplicates = 0;
-        
+
         for(int i = 0; i < playerPositions.size() - 1; i++)
         {
             if(playerPositions.get(i).checkGuess(playerPositions.get(i+1).getPosX(), playerPositions.get(i+1).getPosY()))
             {
-                totalDuplicates++;
-                indexInList(i);
+                //totalDuplicates++;
+                //duplicateIndeces.add(i);
+                return false;
             }
         }
-        
+
+        return true;
+    }
+    
+    /**
+     * checks if the user repeated any spaces
+     * will return false if there are duplicate spaces in the playerPositions list
+     * 
+     * CHECKS THE Xth WITH THE Xth+2
+     */
+    public static boolean checkUsedSpacesMedium()
+    {
         for(int i = 0; i < playerPositions.size() - 2; i++)
         {
             if(playerPositions.get(i).checkGuess(playerPositions.get(i+2).getPosX(), playerPositions.get(i+2).getPosY()))
             {
-                totalDuplicates++;
+                //totalDuplicates++;
+                //duplicateIndeces.add(i);
+                return false;
             }
         }
-        
+
+        return true;
+    }
+    
+    /**
+     * checks if the user repeated any spaces
+     * will return false if there are duplicate spaces in the playerPositions list
+     * 
+     * CHECKS THE Xth WITH THE Xth+3
+     */
+    public static boolean checkUsedSpacesHard()
+    {
         for(int i = 0; i < playerPositions.size() - 3; i++)
         {
             if(playerPositions.get(i).checkGuess(playerPositions.get(i+3).getPosX(), playerPositions.get(i+3).getPosY()))
             {
-                totalDuplicates++;
+                //totalDuplicates++;
+                //duplicateIndeces.add(i);
+                return false;
             }
         }
-        
-        return totalDuplicates;
+
+        return true;
     }
-    
-    public static int indexInList(int index)
+
+    /**
+     * displays the spaces the user has selected
+     * and the number of correct guesses for both the player and the opponent
+     */
+    public static void displayPlayerAndOpponentPos()
     {
-        listIndex = index;
-        return listIndex;
+        System.out.println();
+        System.out.println("--------------------------------------------");
+
+        System.out.println("Player spaces:");
+        for(int i = 0; i < playerPositions.size(); i++)
+        {
+            System.out.println("(" + playerPositions.get(i).getPosX() + "," + playerPositions.get(i).getPosY() + ")");
+        }
+
+        System.out.println();
+
+        System.out.println("Number of spaces the player guessed correctly: " + player.getNumCorrectGuesses());
+        System.out.println();
+        System.out.println("Number of spaces the opponent guessed correctly: " + opponent.getNumCorrectGuesses());
+
+        System.out.println();
+        System.out.println("--------------------------------------------");
+
+        menu();
     }
 
     /**
