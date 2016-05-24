@@ -313,7 +313,13 @@ public class Runner
         System.out.println();
         help();
 
+        if(!userInput.equals("4"))
+        {
         menu();
+    }
+    else{
+     return;   
+    }
     }
 
     /**
@@ -402,8 +408,8 @@ userInput = scan.next();
         else if(userInput.equals("4")) //user selection of quit
         {
             //break mainLoop;
-            System.exit(0);
-            //return;
+            //System.exit(0);
+            return;
         }
         else
         {
