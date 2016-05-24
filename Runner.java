@@ -313,13 +313,13 @@ public class Runner
         System.out.println();
         help();
 
-        if(!userInput.equals("4"))
-        {
-        menu();
-    }
-    else{
-     return;   
-    }
+//         if(!userInput.equals("4"))
+//         {
+//         menu();
+//     }
+//     else{
+//      return;   
+//     }
     }
 
     /**
