@@ -61,6 +61,22 @@ public class Runner
             {
                 difficulty = "hard";
             }
+            
+            try
+            {
+                int difficultyInteger = Integer.parseInt(difficulty);
+                
+                if(difficultyInteger < 1 || difficultyInteger > 3)
+                {
+                    System.out.println("That was not a valid input, try again");
+                    //difficulty = scan.next();
+                }
+            }
+            catch(Exception exception)
+            {
+                System.out.println("That was not a valid input, try again");
+                //difficulty = scan.next();
+            }
         }
 
         System.out.println("\nPick diferent sets of numbers to represent\nyour spots on the grid\n");
@@ -502,7 +518,7 @@ public class Runner
 
         if(player.getNumGuesses() > 0)
         {
-            System.out.println("\nPick an integer between 0 and " + grid.getNumRows());
+            System.out.println("\nPick an integer between 0 and " + (grid.getNumRows()-1));
             xPos = scan.nextInt();
 
             if(xPos >= grid.getNumRows())
@@ -511,7 +527,7 @@ public class Runner
                 xPos = scan.nextInt();
             }
 
-            System.out.println("Pick an integer between 0 and " + grid.getNumCols());
+            System.out.println("Pick an integer between 0 and " + (grid.getNumCols()-1));
             yPos = scan.nextInt();
 
             if(yPos >= grid.getNumCols())
@@ -520,45 +536,45 @@ public class Runner
                 yPos = scan.nextInt();
             }
 
-            PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
-            guessedSpaces.add(newSpace);
-
-            if(guessedSpaces.size() > 1)
-            {
-                for(int x = 0; x < guessedSpaces.size(); x++)
-                {
-                    for(int i = guessedSpaces.size() - 1; i > 0; i--)
-                    {
-                        if(guessedSpaces.get(i).checkGuess(guessedSpaces.get(x).getPosX(), guessedSpaces.get(x).getPosY()))
-                        {
-                            System.out.println("You already guessed that, \nTry again");
-
-                            System.out.println();
-
-                            System.out.println("\nPick an integer between 0 and " + grid.getNumRows());
-                            xPos = scan.nextInt();
-
-                            if(xPos >= grid.getNumRows())
-                            {
-                                System.out.println("\nThat was not valid, try again");
-                                xPos = scan.nextInt();
-                            }
-
-                            System.out.println("Pick an integer between 0 and " + grid.getNumCols());
-                            yPos = scan.nextInt();
-
-                            if(yPos >= grid.getNumCols())
-                            {
-                                System.out.println("\nThat was not valid, try again");
-                                yPos = scan.nextInt();
-                            }
-                            
-                            PosOnGrid replaceSpace = new PosOnGrid(xPos, yPos);
-                            guessedSpaces.set(x, replaceSpace);
-                        }
-                    }
-                }
-            }
+//             PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
+//             guessedSpaces.add(newSpace);
+// 
+//             if(guessedSpaces.size() > 1)
+//             {
+//                 for(int x = 0; x < guessedSpaces.size(); x++)
+//                 {
+//                     for(int i = guessedSpaces.size() - 1; i > 0; i--)
+//                     {
+//                         if(guessedSpaces.get(i).checkGuess(guessedSpaces.get(x).getPosX(), guessedSpaces.get(x).getPosY()))
+//                         {
+//                             System.out.println("You already guessed that, \nTry again");
+// 
+//                             System.out.println();
+// 
+//                             System.out.println("\nPick an integer between 0 and " + grid.getNumRows());
+//                             xPos = scan.nextInt();
+// 
+//                             if(xPos >= grid.getNumRows())
+//                             {
+//                                 System.out.println("\nThat was not valid, try again");
+//                                 xPos = scan.nextInt();
+//                             }
+// 
+//                             System.out.println("Pick an integer between 0 and " + grid.getNumCols());
+//                             yPos = scan.nextInt();
+// 
+//                             if(yPos >= grid.getNumCols())
+//                             {
+//                                 System.out.println("\nThat was not valid, try again");
+//                                 yPos = scan.nextInt();
+//                             }
+//                             
+//                             PosOnGrid replaceSpace = new PosOnGrid(xPos, yPos);
+//                             guessedSpaces.set(x, replaceSpace);
+//                         }
+//                     }
+//                 }
+//             }
 
             grid.setPosOnGrid(xPos, yPos, true);
 
