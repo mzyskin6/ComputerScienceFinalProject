@@ -39,28 +39,11 @@ public class Runner
         System.out.println("-----------------------------------------");
         System.out.println();
 
-        System.out.println("Select Difficulty (By typing the word (Or type the number)): \n1: Easy\n2: Medium\n3: Hard");
+        System.out.println("Select Difficulty (Type the number): \n1: Easy\n2: Medium\n3: Hard");
 
-        while(!difficulty.equals("Easy") && !difficulty.equals("easy") && 
-        !difficulty.equals("Medium") && !difficulty.equals("medium") && 
-        !difficulty.equals("Hard") && !difficulty.equals("hard"))
+        while(!difficulty.equals("1") && !difficulty.equals("2") && !difficulty.equals("3"))
         {
             difficulty = scan.next();
-
-            if(difficulty.equals("1"))
-            {
-                difficulty = "easy";
-            }
-
-            if(difficulty.equals("2"))
-            {
-                difficulty = "medium";
-            }
-
-            if(difficulty.equals("3"))
-            {
-                difficulty = "hard";
-            }
             
             try
             {
@@ -78,11 +61,51 @@ public class Runner
                 //difficulty = scan.next();
             }
         }
+        
+//         while(!difficulty.equals("Easy") && !difficulty.equals("easy") && 
+//         !difficulty.equals("Medium") && !difficulty.equals("medium") && 
+//         !difficulty.equals("Hard") && !difficulty.equals("hard"))
+//         {
+//             difficulty = scan.next();
+// 
+//             if(difficulty.equals("1"))
+//             {
+//                 difficulty = "easy";
+//             }
+// 
+//             if(difficulty.equals("2"))
+//             {
+//                 difficulty = "medium";
+//             }
+// 
+//             if(difficulty.equals("3"))
+//             {
+//                 difficulty = "hard";
+//             }
+//             
+//             try
+//             {
+//                 int difficultyInteger = Integer.parseInt(difficulty);
+//                 
+//                 if(difficultyInteger < 1 || difficultyInteger > 3)
+//                 {
+//                     System.out.println("That was not a valid input, try again");
+//                     //difficulty = scan.next();
+//                 }
+//             }
+//             catch(Exception exception)
+//             {
+//                 System.out.println("That was not a valid input, try again");
+//                 //difficulty = scan.next();
+//             }
+//         }
 
-        System.out.println("\nPick diferent sets of numbers to represent\nyour spots on the grid\n");
+        //System.out.println("\nPick diferent sets of numbers to represent\nyour spots on the grid\n");
 
-        if(difficulty.equals("Easy") || difficulty.equals("easy"))
+        if(difficulty.equals("1"))
         {
+            System.out.println("\nPick two sets of numbers to represent\nyour spots on the grid(Press enter after each number)\n");
+            
             grid = new GridManager(6, 6);
 
             while(playerPositions.size() < 2)
@@ -121,7 +144,9 @@ public class Runner
                 }
             }
 
-            player = new Player(5, 2);
+            int numGuesses = ((grid.getNumCols() * grid.getNumCols()) - grid.getNumCols()) / 2;
+            
+            player = new Player(numGuesses, 2);
 
             while(opponentPositions.size() < 2)
             {
@@ -144,8 +169,10 @@ public class Runner
 
             opponent = new NotPlayer(2);
         }
-        else if(difficulty.equals("Medium") || difficulty.equals("medium"))
+        else if(difficulty.equals("2"))
         {
+            System.out.println("\nPick three sets of numbers to represent\nyour spots on the grid(Press enter after each number)\n");
+            
             grid = new GridManager(10, 10);
 
             while(playerPositions.size() < 3)
@@ -197,7 +224,9 @@ public class Runner
                 }
             }
 
-            player = new Player(8, 3);
+            int numGuesses = ((grid.getNumCols() * grid.getNumCols()) - grid.getNumCols()) / 2;
+            
+            player = new Player(numGuesses, 3);
 
             while(opponentPositions.size() < 3)
             {
@@ -221,8 +250,10 @@ public class Runner
 
             opponent = new NotPlayer(3);
         }
-        else if(difficulty.equals("Hard") || difficulty.equals("hard"))
+        else if(difficulty.equals("3"))
         {
+            System.out.println("\nPick four sets of numbers to represent\nyour spots on the grid(Press enter after each number)\n");
+            
             grid = new GridManager(14, 14);
 
             while(playerPositions.size() < 4)
@@ -287,7 +318,9 @@ public class Runner
                 }
             }
 
-            player = new Player(12, 4);
+            int numGuesses = ((grid.getNumCols() * grid.getNumCols()) - grid.getNumCols()) / 2;
+            
+            player = new Player(numGuesses, 4);
 
             while(opponentPositions.size() < 4)
             {
@@ -312,7 +345,7 @@ public class Runner
             opponent = new NotPlayer(4);
         }else{
             System.out.println("That was not a valid option\n");
-            System.out.println("Select Difficulty: \nEasy, Medium, Hard");
+            System.out.println("Select Difficulty: \n1: Easy\n2: Medium\n3: Hard");
             difficulty = scan.next();
         }
 
@@ -348,6 +381,15 @@ public class Runner
         if(hasLost || player.getNumGuesses() == 0 || 
         opponent.getNumCorrectGuesses() == player.getNumSpacesOnGrid())
         {
+            if(player.getNumGuesses() == 0)
+            {
+                System.out.println("You ran out of guesses");
+            }
+            if(opponent.getNumCorrectGuesses() == player.getNumSpacesOnGrid())
+            {
+                System.out.println("The opponent guessed all of your spaces");
+            }
+            
             System.out.println("\nGAME OVER");
 
             return;
@@ -485,6 +527,8 @@ public class Runner
         System.out.println();
         System.out.println("--------------------------------------------");
 
+        System.out.println("Remaining guesses: " + player.getNumGuesses() + "\n");
+        
         System.out.println("Player spaces:");
         for(int i = 0; i < playerPositions.size(); i++)
         {
@@ -518,7 +562,7 @@ public class Runner
 
         if(player.getNumGuesses() > 0)
         {
-            System.out.println("\nPick an integer between 0 and " + (grid.getNumRows()-1));
+            System.out.println("\nGuess the X position (Between 0 and " + (grid.getNumRows()-1) + ")");
             xPos = scan.nextInt();
 
             if(xPos >= grid.getNumRows())
@@ -527,7 +571,7 @@ public class Runner
                 xPos = scan.nextInt();
             }
 
-            System.out.println("Pick an integer between 0 and " + (grid.getNumCols()-1));
+            System.out.println("Guess the Y position (Between 0 and " + (grid.getNumCols()-1) + ")");
             yPos = scan.nextInt();
 
             if(yPos >= grid.getNumCols())
@@ -606,13 +650,14 @@ public class Runner
      */
     public static void help()
     {
+        System.out.println();
         System.out.println("------------------------------------------------------------------");
         System.out.println("HELP:\n");
         System.out.println("The goal is to correctly guess where the opponent is");
         System.out.println("\n" + "The user will have several options each turn");
         System.out.println("Guess: Make a guess, there are a limited number of guesses");
         System.out.println("Help: display this menu");
-        System.out.println("Show Score: Displays the spaces the player selected and the\n   number of correct guesses both the player and the opponent made");
+        System.out.println("Show Score: Displays the spaces the player selected and the\n   number of correct guesses both the player and the opponent made\n   and the number of remaining guesses");
         System.out.println("Quit: Exit");
 
         System.out.println("\nX represents where the player has guessed");
@@ -634,17 +679,17 @@ public class Runner
         int yPos = 0;
 
         System.out.println("\nOpponent Turn");
-        if(level.equals("Easy") || level.equals("easy"))
+        if(level.equals("1"))
         {
             xPos = (int)(Math.random() * 6);
             yPos = (int)(Math.random() * 6);
         }
-        else if(level.equals("Medium") || level.equals("medium"))
+        else if(level.equals("2"))
         {
             xPos = (int)(Math.random() * 10);
             yPos = (int)(Math.random() * 10);
         }
-        else if(level.equals("Hard") || level.equals("hard"))
+        else if(level.equals("3"))
         {
             xPos = (int)(Math.random() * 14);
             yPos = (int)(Math.random() * 14);
