@@ -557,27 +557,62 @@ public class Runner
     public static int guess()
     {
         Scanner scan = new Scanner(System.in);
-        int xPos = 0;
-        int yPos = 0;
+        String xPos = "";
+        String yPos = "";
+
+        int xPosInt = -1;
+        int yPosInt = -1;
 
         if(player.getNumGuesses() > 0)
         {
             System.out.println("\nGuess the X position (Between 0 and " + (grid.getNumRows()-1) + ")");
-            xPos = scan.nextInt();
+            xPos = scan.next();
 
-            if(xPos >= grid.getNumRows())
+            while(xPosInt == -1)
             {
-                System.out.println("\nThat was not valid, try again");
-                xPos = scan.nextInt();
+                try
+                {
+                    xPosInt = Integer.parseInt(xPos);
+
+                    if(xPosInt >= grid.getNumRows() || xPosInt < 0)
+                    {
+                        System.out.println("\nThat was not valid, try again");
+                        xPos = scan.next();
+                    }
+                }
+                catch(Exception exception)
+                {
+                    System.out.println("That was not valid, try again");
+                    xPos = scan.next();
+                }
             }
 
-            System.out.println("Guess the Y position (Between 0 and " + (grid.getNumCols()-1) + ")");
-            yPos = scan.nextInt();
+//             if(xPosInt >= grid.getNumRows() || xPosInt < 0)
+//             {
+//                 System.out.println("\nThat was not valid, try again");
+//                 xPos = scan.next();
+//             }
 
-            if(yPos >= grid.getNumCols())
+            System.out.println("Guess the Y position (Between 0 and " + (grid.getNumCols()-1) + ")");
+            yPos = scan.next();
+
+            while(yPosInt == -1)
+            {
+                try
+                {
+                    yPosInt = Integer.parseInt(yPos);
+                }
+                catch(Exception exception)
+                {
+                    System.out.println("That was not valid, try again");
+                    yPos = scan.next();
+                }
+            }
+
+            if(yPosInt >= grid.getNumCols() || yPosInt < 0)
             {
                 System.out.println("\nThat was not valid, try again");
-                yPos = scan.nextInt();
+                yPos = scan.next();
             }
 
             //             PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
@@ -620,9 +655,9 @@ public class Runner
             //                 }
             //             }
 
-            grid.setPosOnGrid(xPos, yPos, true);
+            grid.setPosOnGrid(xPosInt, yPosInt, true);
 
-            if(checkAllSpaces(xPos, yPos, false))
+            if(checkAllSpaces(xPosInt, yPosInt, false))
             {
                 System.out.println("\nCorrect!");
                 player.setNumCorrectGuesses(1);
