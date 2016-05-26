@@ -4,7 +4,7 @@
  * for both the player and the opponent
  * 
  * @author Michael Zyskind
- * @version May 21, 2016
+ * @version May 25, 2016
  */
 public class PosOnGrid
 {
@@ -31,6 +31,10 @@ public class PosOnGrid
         return yPos;
     }
     
+    /**
+     * checks the input with the stored values to see if they match
+     * to be used with guessing to see if the guess is correct
+     */
     public boolean checkGuess(int posX, int posY)
     {
         if(posX == xPos && posY == yPos)

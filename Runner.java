@@ -44,11 +44,11 @@ public class Runner
         while(!difficulty.equals("1") && !difficulty.equals("2") && !difficulty.equals("3"))
         {
             difficulty = scan.next();
-            
+
             try
             {
                 int difficultyInteger = Integer.parseInt(difficulty);
-                
+
                 if(difficultyInteger < 1 || difficultyInteger > 3)
                 {
                     System.out.println("That was not a valid input, try again");
@@ -61,51 +61,51 @@ public class Runner
                 //difficulty = scan.next();
             }
         }
-        
-//         while(!difficulty.equals("Easy") && !difficulty.equals("easy") && 
-//         !difficulty.equals("Medium") && !difficulty.equals("medium") && 
-//         !difficulty.equals("Hard") && !difficulty.equals("hard"))
-//         {
-//             difficulty = scan.next();
-// 
-//             if(difficulty.equals("1"))
-//             {
-//                 difficulty = "easy";
-//             }
-// 
-//             if(difficulty.equals("2"))
-//             {
-//                 difficulty = "medium";
-//             }
-// 
-//             if(difficulty.equals("3"))
-//             {
-//                 difficulty = "hard";
-//             }
-//             
-//             try
-//             {
-//                 int difficultyInteger = Integer.parseInt(difficulty);
-//                 
-//                 if(difficultyInteger < 1 || difficultyInteger > 3)
-//                 {
-//                     System.out.println("That was not a valid input, try again");
-//                     //difficulty = scan.next();
-//                 }
-//             }
-//             catch(Exception exception)
-//             {
-//                 System.out.println("That was not a valid input, try again");
-//                 //difficulty = scan.next();
-//             }
-//         }
+
+        //         while(!difficulty.equals("Easy") && !difficulty.equals("easy") && 
+        //         !difficulty.equals("Medium") && !difficulty.equals("medium") && 
+        //         !difficulty.equals("Hard") && !difficulty.equals("hard"))
+        //         {
+        //             difficulty = scan.next();
+        // 
+        //             if(difficulty.equals("1"))
+        //             {
+        //                 difficulty = "easy";
+        //             }
+        // 
+        //             if(difficulty.equals("2"))
+        //             {
+        //                 difficulty = "medium";
+        //             }
+        // 
+        //             if(difficulty.equals("3"))
+        //             {
+        //                 difficulty = "hard";
+        //             }
+        //             
+        //             try
+        //             {
+        //                 int difficultyInteger = Integer.parseInt(difficulty);
+        //                 
+        //                 if(difficultyInteger < 1 || difficultyInteger > 3)
+        //                 {
+        //                     System.out.println("That was not a valid input, try again");
+        //                     //difficulty = scan.next();
+        //                 }
+        //             }
+        //             catch(Exception exception)
+        //             {
+        //                 System.out.println("That was not a valid input, try again");
+        //                 //difficulty = scan.next();
+        //             }
+        //         }
 
         //System.out.println("\nPick diferent sets of numbers to represent\nyour spots on the grid\n");
 
         if(difficulty.equals("1"))
         {
             System.out.println("\nPick two sets of numbers to represent\nyour spots on the grid(Press enter after each number)\n");
-            
+
             grid = new GridManager(6, 6);
 
             while(playerPositions.size() < 2)
@@ -145,7 +145,7 @@ public class Runner
             }
 
             int numGuesses = ((grid.getNumCols() * grid.getNumCols()) - grid.getNumCols()) / 2;
-            
+
             player = new Player(numGuesses, 2);
 
             while(opponentPositions.size() < 2)
@@ -172,7 +172,7 @@ public class Runner
         else if(difficulty.equals("2"))
         {
             System.out.println("\nPick three sets of numbers to represent\nyour spots on the grid(Press enter after each number)\n");
-            
+
             grid = new GridManager(10, 10);
 
             while(playerPositions.size() < 3)
@@ -225,7 +225,7 @@ public class Runner
             }
 
             int numGuesses = ((grid.getNumCols() * grid.getNumCols()) - grid.getNumCols()) / 2;
-            
+
             player = new Player(numGuesses, 3);
 
             while(opponentPositions.size() < 3)
@@ -253,7 +253,7 @@ public class Runner
         else if(difficulty.equals("3"))
         {
             System.out.println("\nPick four sets of numbers to represent\nyour spots on the grid(Press enter after each number)\n");
-            
+
             grid = new GridManager(14, 14);
 
             while(playerPositions.size() < 4)
@@ -319,7 +319,7 @@ public class Runner
             }
 
             int numGuesses = ((grid.getNumCols() * grid.getNumCols()) - grid.getNumCols()) / 2;
-            
+
             player = new Player(numGuesses, 4);
 
             while(opponentPositions.size() < 4)
@@ -389,7 +389,7 @@ public class Runner
             {
                 System.out.println("The opponent guessed all of your spaces");
             }
-            
+
             System.out.println("\nGAME OVER");
 
             return;
@@ -528,7 +528,7 @@ public class Runner
         System.out.println("--------------------------------------------");
 
         System.out.println("Remaining guesses: " + player.getNumGuesses() + "\n");
-        
+
         System.out.println("Player spaces:");
         for(int i = 0; i < playerPositions.size(); i++)
         {
@@ -580,45 +580,45 @@ public class Runner
                 yPos = scan.nextInt();
             }
 
-//             PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
-//             guessedSpaces.add(newSpace);
-// 
-//             if(guessedSpaces.size() > 1)
-//             {
-//                 for(int x = 0; x < guessedSpaces.size(); x++)
-//                 {
-//                     for(int i = guessedSpaces.size() - 1; i > 0; i--)
-//                     {
-//                         if(guessedSpaces.get(i).checkGuess(guessedSpaces.get(x).getPosX(), guessedSpaces.get(x).getPosY()))
-//                         {
-//                             System.out.println("You already guessed that, \nTry again");
-// 
-//                             System.out.println();
-// 
-//                             System.out.println("\nPick an integer between 0 and " + grid.getNumRows());
-//                             xPos = scan.nextInt();
-// 
-//                             if(xPos >= grid.getNumRows())
-//                             {
-//                                 System.out.println("\nThat was not valid, try again");
-//                                 xPos = scan.nextInt();
-//                             }
-// 
-//                             System.out.println("Pick an integer between 0 and " + grid.getNumCols());
-//                             yPos = scan.nextInt();
-// 
-//                             if(yPos >= grid.getNumCols())
-//                             {
-//                                 System.out.println("\nThat was not valid, try again");
-//                                 yPos = scan.nextInt();
-//                             }
-//                             
-//                             PosOnGrid replaceSpace = new PosOnGrid(xPos, yPos);
-//                             guessedSpaces.set(x, replaceSpace);
-//                         }
-//                     }
-//                 }
-//             }
+            //             PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
+            //             guessedSpaces.add(newSpace);
+            // 
+            //             if(guessedSpaces.size() > 1)
+            //             {
+            //                 for(int x = 0; x < guessedSpaces.size(); x++)
+            //                 {
+            //                     for(int i = guessedSpaces.size() - 1; i > 0; i--)
+            //                     {
+            //                         if(guessedSpaces.get(i).checkGuess(guessedSpaces.get(x).getPosX(), guessedSpaces.get(x).getPosY()))
+            //                         {
+            //                             System.out.println("You already guessed that, \nTry again");
+            // 
+            //                             System.out.println();
+            // 
+            //                             System.out.println("\nPick an integer between 0 and " + grid.getNumRows());
+            //                             xPos = scan.nextInt();
+            // 
+            //                             if(xPos >= grid.getNumRows())
+            //                             {
+            //                                 System.out.println("\nThat was not valid, try again");
+            //                                 xPos = scan.nextInt();
+            //                             }
+            // 
+            //                             System.out.println("Pick an integer between 0 and " + grid.getNumCols());
+            //                             yPos = scan.nextInt();
+            // 
+            //                             if(yPos >= grid.getNumCols())
+            //                             {
+            //                                 System.out.println("\nThat was not valid, try again");
+            //                                 yPos = scan.nextInt();
+            //                             }
+            //                             
+            //                             PosOnGrid replaceSpace = new PosOnGrid(xPos, yPos);
+            //                             guessedSpaces.set(x, replaceSpace);
+            //                         }
+            //                     }
+            //                 }
+            //             }
 
             grid.setPosOnGrid(xPos, yPos, true);
 
