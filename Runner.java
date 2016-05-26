@@ -568,52 +568,37 @@ public class Runner
             System.out.println("\nGuess the X position (Between 0 and " + (grid.getNumRows()-1) + ")");
             xPos = scan.next();
 
-            while(xPosInt == -1)
-            {
-                try
-                {
-                    xPosInt = Integer.parseInt(xPos);
+            xPosInt = intParse(xPos);
 
-                    if(xPosInt >= grid.getNumRows() || xPosInt < 0)
-                    {
-                        System.out.println("\nThat was not valid, try again");
-                        xPos = scan.next();
-                    }
-                }
-                catch(Exception exception)
-                {
-                    System.out.println("That was not valid, try again");
-                    xPos = scan.next();
-                }
-            }
-
-//             if(xPosInt >= grid.getNumRows() || xPosInt < 0)
-//             {
-//                 System.out.println("\nThat was not valid, try again");
-//                 xPos = scan.next();
-//             }
+            //             if(xPosInt >= grid.getNumRows() || xPosInt < 0)
+            //             {
+            //                 System.out.println("\nThat was not valid, try again");
+            //                 xPos = scan.next();
+            //             }
 
             System.out.println("Guess the Y position (Between 0 and " + (grid.getNumCols()-1) + ")");
             yPos = scan.next();
+            
+            yPosInt = intParse(yPos);
 
-            while(yPosInt == -1)
-            {
-                try
-                {
-                    yPosInt = Integer.parseInt(yPos);
-                }
-                catch(Exception exception)
-                {
-                    System.out.println("That was not valid, try again");
-                    yPos = scan.next();
-                }
-            }
-
-            if(yPosInt >= grid.getNumCols() || yPosInt < 0)
-            {
-                System.out.println("\nThat was not valid, try again");
-                yPos = scan.next();
-            }
+//             while(yPosInt == -1)
+//             {
+//                 try
+//                 {
+//                     yPosInt = Integer.parseInt(yPos);
+//                 }
+//                 catch(Exception exception)
+//                 {
+//                     System.out.println("That was not valid, try again");
+//                     yPos = scan.next();
+//                 }
+//             }
+// 
+//             if(yPosInt >= grid.getNumCols() || yPosInt < 0)
+//             {
+//                 System.out.println("\nThat was not valid, try again");
+//                 yPos = scan.next();
+//             }
 
             //             PosOnGrid newSpace = new PosOnGrid(xPos, yPos);
             //             guessedSpaces.add(newSpace);
@@ -678,6 +663,42 @@ public class Runner
             System.out.println("You ran out of guesses");
             return 0;
         }
+    }
+
+    /**
+     * parses a string to an int if possible, will ask for additional input
+     * if it cannot parse the string
+     * 
+     * to ONLY be used with parsing guesses
+     */
+    public static int intParse(String stringToParse)
+    {
+        Scanner scan = new Scanner(System.in);
+        int num = -1;
+
+        while(num == -1)
+        {
+            try
+            {
+                while(num >= grid.getNumCols() || num < 0)
+                {
+                    num = Integer.parseInt(stringToParse);
+
+                    if(num >= grid.getNumCols() || num < 0)
+                    {
+                        System.out.println("That was not valid, try again");
+                        stringToParse = scan.next();
+                    }
+                }
+            }
+            catch(Exception exception)
+            {
+                System.out.println("That was not valid, try again");
+                stringToParse = scan.next();
+            }
+        }
+
+        return num;
     }
 
     /**
